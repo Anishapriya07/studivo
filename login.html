@@ -1,0 +1,238 @@
+<!-- 
+  ==========================================
+  STUDIVO ROLE-BASED LOGIN SYSTEM
+  Admin & Student Dual Choice Portal
+  ==========================================
+  SECURITY NOTE:
+  This authentication system is for demonstration purposes only. In a production application, 
+  authentication should be handled securely on a backend server.
+  ==========================================
+-->
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studivo — Welcome & Portal Login</title>
+  <meta name="description" content="Select your role to access your personalized Studivo portal as a Student or Admin.">
+
+  <!-- Theme Engine & Auth Scripts in Head -->
+  <script src="js/theme-engine.js"></script>
+  <script src="js/auth.js"></script>
+
+  <!-- CSS Design System & Custom Layout Styles -->
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/landing.css">
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: var(--bg-primary);
+    }
+
+    .portal-main-box {
+      max-width: 560px;
+      width: 100%;
+      margin: 60px auto 40px;
+      padding: var(--space-8);
+      background: var(--glass-surface-1);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid var(--glass-border-light);
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), var(--shadow-glow-primary);
+    }
+
+    .role-action-card {
+      padding: var(--space-6);
+      border-radius: 20px;
+      background: var(--glass-surface-2);
+      border: 1px solid var(--glass-border);
+      cursor: pointer;
+      transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), border-color 300ms ease, box-shadow 300ms ease;
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+      margin-bottom: var(--space-4);
+    }
+
+    .role-action-card:hover {
+      transform: translateY(-4px) scale(1.01);
+      border-color: var(--brand-primary);
+      box-shadow: var(--shadow-lg), var(--shadow-glow-primary);
+    }
+
+    .role-action-card.admin-card:hover {
+      border-color: var(--brand-accent);
+      box-shadow: var(--shadow-lg), var(--shadow-glow-accent);
+    }
+
+    .role-avatar-badge {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== SIMPLE HEADER NAVBAR ==================== -->
+  <nav class="landing-navbar" style="max-width: 1280px; margin: 0 auto; width: 100%;">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/logo/logo-horizontal.svg" alt="Studivo Logo" height="38">
+    </a>
+
+    <div style="display: flex; align-items: center; gap: var(--space-4);">
+      <!-- Sun/Moon Theme Toggle Control -->
+      <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Light and Dark Theme" title="Switch Light / Dark Theme">
+        <div class="theme-toggle-thumb">
+          <span class="theme-icon-sun">☀️</span>
+          <span class="theme-icon-moon">🌙</span>
+        </div>
+      </button>
+
+      <a href="index.html" class="btn btn-ghost">Explore Site →</a>
+    </div>
+  </nav>
+
+  <!-- ==================== MAIN WELCOME & ROLE DUAL CHOICE ==================== -->
+  <main style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 0 var(--space-4);">
+    <div class="portal-main-box">
+      
+      <!-- Brand Logo Header -->
+      <div style="text-align: center; margin-bottom: var(--space-8);">
+        <img src="assets/logo/logo-icon.svg" alt="Studivo Icon" width="52" style="margin-bottom: var(--space-2);">
+        <h1 class="gradient-text" style="font-size: clamp(1.8rem, 3.5vw, 2.4rem); font-weight: 800; letter-spacing: -0.5px;">Welcome to Studivo</h1>
+        <p style="font-size: var(--text-sm); color: var(--text-muted); margin-top: 4px;">Choose how you want to access the platform</p>
+      </div>
+
+      <!-- Alert Message Notification -->
+      <div id="portal-alert-box" style="display: none; padding: var(--space-3); border-radius: var(--radius-md); font-size: var(--text-xs); font-weight: bold; margin-bottom: var(--space-4);"></div>
+
+      <!-- ROLE CHOICE CARDS CONTAINER -->
+      <div id="role-cards-wrapper">
+        
+        <!-- Option 1: Student Card -->
+        <div class="role-action-card" onclick="handleInstantStudentLogin()">
+          <div class="role-avatar-badge" style="background: rgba(108, 99, 255, 0.15); color: var(--brand-primary);">
+            👨‍🎓
+          </div>
+          <div style="flex: 1;">
+            <h3 style="font-size: var(--text-lg); font-weight: 800; margin-bottom: 2px;">Continue as Student</h3>
+            <p style="font-size: var(--text-xs); color: var(--text-muted);">Access learning tools, career roadmaps, finance tracker & Knowledge Hub</p>
+          </div>
+          <span style="font-size: 1.3rem; color: var(--brand-primary); font-weight: bold;">→</span>
+        </div>
+
+        <!-- Option 2: Admin Card -->
+        <div class="role-action-card admin-card" onclick="showAdminLoginForm()">
+          <div class="role-avatar-badge" style="background: rgba(236, 72, 153, 0.15); color: var(--brand-accent);">
+            👨‍💼
+          </div>
+          <div style="flex: 1;">
+            <h3 style="font-size: var(--text-lg); font-weight: 800; margin-bottom: 2px;">Admin Login</h3>
+            <p style="font-size: var(--text-xs); color: var(--text-muted);">Manage the Knowledge Hub library, books & summaries</p>
+          </div>
+          <span style="font-size: 1.3rem; color: var(--brand-accent); font-weight: bold;">🔑</span>
+        </div>
+
+      </div>
+
+      <!-- ADMIN CREDENTIALS MODAL FORM (Initially Hidden) -->
+      <form id="admin-login-form" onsubmit="handleAdminFormSubmit(event)" style="display: none; padding-top: var(--space-2);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
+          <h3 style="font-size: var(--text-base); font-weight: 800; color: var(--brand-accent);">👨‍💼 Admin Portal Login</h3>
+          <button type="button" class="btn btn-ghost btn-sm" onclick="showRoleCards()">← Back</button>
+        </div>
+
+        <div class="form-group" style="margin-bottom: var(--space-3);">
+          <label class="form-label">Admin Username</label>
+          <input type="text" class="input-control" id="admin-username" placeholder="admin" value="admin" required>
+        </div>
+
+        <div class="form-group" style="margin-bottom: var(--space-4);">
+          <label class="form-label">Admin Password</label>
+          <input type="password" class="input-control" id="admin-password" placeholder="studivo123" value="studivo123" required>
+        </div>
+
+        <div style="background: rgba(236, 72, 153, 0.1); padding: var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--brand-accent); margin-bottom: var(--space-5); font-size: var(--text-xs); color: var(--text-main);">
+          🔑 <strong>Demo Credentials:</strong> Username: <code>admin</code> • Password: <code>studivo123</code>
+        </div>
+
+        <button type="submit" class="btn btn-accent btn-lg" style="width: 100%; border-radius: 14px;">
+          Authenticate as Admin 🔑
+        </button>
+      </form>
+
+    </div>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="landing-footer">
+    <div class="footer-bottom" style="max-width: 1280px; margin: 0 auto;">
+      <div>© 2026 Studivo Role-Based Portal. 100% Offline LocalStorage.</div>
+      <div>
+        <span style="font-size: 0.7rem; color: var(--text-dim);">
+          🔒 Authentication state stored in localStorage for frontend demonstration.
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Page Interactivity -->
+  <script>
+    function showAlert(msg, isError = false) {
+      const alertBox = document.getElementById('portal-alert-box');
+      if (!alertBox) return;
+      alertBox.style.display = 'block';
+      alertBox.style.background = isError ? 'rgba(239, 68, 68, 0.15)' : 'rgba(16, 185, 129, 0.15)';
+      alertBox.style.borderColor = isError ? 'var(--status-danger)' : 'var(--status-success)';
+      alertBox.style.color = isError ? '#EF4444' : '#10B981';
+      alertBox.textContent = msg;
+    }
+
+    function handleInstantStudentLogin() {
+      const res = authEngine.login('student', 'Alex Rivers', '');
+      showAlert('Welcome back! Logging in as Student...', false);
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 500);
+    }
+
+    function showAdminLoginForm() {
+      document.getElementById('role-cards-wrapper').style.display = 'none';
+      document.getElementById('admin-login-form').style.display = 'block';
+    }
+
+    function showRoleCards() {
+      document.getElementById('role-cards-wrapper').style.display = 'block';
+      document.getElementById('admin-login-form').style.display = 'none';
+      document.getElementById('portal-alert-box').style.display = 'none';
+    }
+
+    function handleAdminFormSubmit(e) {
+      e.preventDefault();
+      const u = document.getElementById('admin-username').value;
+      const p = document.getElementById('admin-password').value;
+      const res = authEngine.login('admin', u, p);
+
+      if (res.success) {
+        showAlert('Admin authentication verified! Redirecting...', false);
+        setTimeout(() => {
+          window.location.href = 'knowledge.html';
+        }, 500);
+      } else {
+        showAlert(res.message, true);
+      }
+    }
+  </script>
+</body>
+</html>

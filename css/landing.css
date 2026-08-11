@@ -1,0 +1,553 @@
+/* ==========================================
+   STUDIVO LANDING PAGE STYLES
+   Ultra-Premium Glassmorphic Landing Page
+   ========================================== */
+
+/* --- Sticky Navbar --- */
+/* ==================== TOP NAVIGATION SAAS PILL TABS REDESIGN ==================== */
+.landing-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem var(--space-8);
+  transition: background var(--transition-theme), border-color var(--transition-theme), box-shadow var(--transition-theme);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* Light Mode SaaS Navbar */
+html[data-theme="light"] .landing-navbar {
+  background: #FFFFFF !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04) !important;
+}
+
+/* Dark Mode SaaS Navbar */
+html[data-theme="dark"] .landing-navbar {
+  background: #111827 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4) !important;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: 12px;
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 1 !important;
+}
+
+.nav-links a::after,
+.nav-links a::before {
+  display: none !important;
+}
+
+/* ==================== LIGHT MODE SAAS TAB STATES ==================== */
+html[data-theme="light"] .nav-links a {
+  color: #111827 !important;
+  background: transparent;
+}
+
+html[data-theme="light"] .nav-links a:hover {
+  color: #111827 !important;
+  background: #F8FAFC !important;
+  transform: scale(1.02);
+}
+
+html[data-theme="light"] .nav-links a.active {
+  color: #BE185D !important;
+  background: #FCE7F3 !important;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(236, 72, 153, 0.15);
+}
+
+/* ==================== DARK MODE SAAS TAB STATES ==================== */
+html[data-theme="dark"] .nav-links a {
+  color: #F8FAFC !important;
+  background: transparent;
+}
+
+html[data-theme="dark"] .nav-links a:hover {
+  color: #FFFFFF !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  transform: scale(1.02);
+}
+
+html[data-theme="dark"] .nav-links a.active {
+  color: #FFFFFF !important;
+  background: rgba(108, 99, 255, 0.18) !important;
+  font-weight: 700;
+  border: 1px solid rgba(108, 99, 255, 0.3) !important;
+  box-shadow: 0 4px 15px rgba(108, 99, 255, 0.25);
+}
+
+/* --- Hero Section --- */
+.hero-section {
+  position: relative;
+  padding: 100px var(--space-8) 120px;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--space-10);
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  z-index: 2;
+}
+
+.hero-badge {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.5rem 1rem;
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: #A5B4FC;
+  box-shadow: var(--shadow-glow-primary);
+}
+
+.hero-headline {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.1;
+  font-weight: var(--weight-extrabold);
+  letter-spacing: -0.03em;
+}
+
+.hero-subheading {
+  font-size: var(--text-lg);
+  color: var(--text-muted);
+  max-width: 540px;
+  line-height: 1.6;
+}
+
+.hero-cta-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-2);
+}
+
+.btn-pulse {
+  animation: buttonPulse 2.5s infinite;
+}
+
+@keyframes buttonPulse {
+  0%, 100% { box-shadow: 0 0 25px rgba(99, 102, 241, 0.4); }
+  50% { box-shadow: 0 0 45px rgba(236, 72, 153, 0.7); }
+}
+
+/* Floating Hero Container */
+.hero-visual-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 480px;
+}
+
+/* SVG Illustration Frame */
+.hero-illustration {
+  width: 100%;
+  max-width: 460px;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+  animation: floatMain 6s ease-in-out infinite;
+}
+
+@keyframes floatMain {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(1deg); }
+}
+
+/* Floating Cards Surrounding Hero */
+.floating-card {
+  position: absolute;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  box-shadow: var(--shadow-lg), var(--shadow-glow-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  z-index: 3;
+}
+
+.floating-card-1 {
+  top: 10%;
+  left: -20px;
+  animation: floatCard1 5s ease-in-out infinite;
+}
+
+.floating-card-2 {
+  bottom: 12%;
+  right: -10px;
+  animation: floatCard2 7s ease-in-out infinite;
+}
+
+.floating-card-3 {
+  top: 60%;
+  left: -40px;
+  animation: floatCard3 6s ease-in-out infinite;
+}
+
+@keyframes floatCard1 {
+  0%, 100% { transform: translateY(0px) rotate(-2deg); }
+  50% { transform: translateY(-15px) rotate(1deg); }
+}
+
+@keyframes floatCard2 {
+  0%, 100% { transform: translateY(0px) rotate(2deg); }
+  50% { transform: translateY(-18px) rotate(-1deg); }
+}
+
+@keyframes floatCard3 {
+  0%, 100% { transform: translateY(0px) rotate(-1deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+/* --- Section Container Base --- */
+.landing-section {
+  padding: 100px var(--space-8);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 60px;
+}
+
+.section-header h2 {
+  font-size: var(--text-3xl);
+  margin-top: var(--space-2);
+}
+
+.section-tag {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--brand-accent);
+}
+
+/* --- Problem Section --- */
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+
+.problem-card {
+  background: var(--glass-surface-1);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.problem-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(239, 68, 68, 0.4);
+  box-shadow: 0 12px 30px rgba(239, 68, 68, 0.15);
+}
+
+.problem-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background: rgba(239, 68, 68, 0.12);
+  color: var(--status-danger);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: var(--space-4);
+}
+
+/* --- Solution Section --- */
+.solution-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-8);
+}
+
+.solution-card {
+  background: var(--glass-surface-1);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.solution-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--glass-border-glow);
+  box-shadow: var(--shadow-lg), var(--shadow-glow-primary);
+}
+
+.solution-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.solution-icon-box {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: var(--shadow-glow-primary);
+}
+
+.solution-card-features {
+  list-style: none;
+  margin: var(--space-4) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.solution-card-features li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.solution-card-features li::before {
+  content: '✓';
+  color: var(--status-success);
+  font-weight: bold;
+}
+
+/* --- Why Studivo (Stats & Progress Circles) --- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+
+.stat-circle-card {
+  background: var(--glass-surface-1);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all var(--transition-normal);
+}
+
+.stat-circle-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--glass-border-light);
+}
+
+.circle-svg-wrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-bottom: var(--space-4);
+}
+
+.circle-svg-wrapper svg {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+
+.circle-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.06);
+  stroke-width: 8;
+}
+
+.circle-val {
+  fill: none;
+  stroke: url(#statGradient1);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 314;
+  transition: stroke-dashoffset 2s ease;
+}
+
+.circle-text-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-extrabold);
+}
+
+/* --- Testimonials --- */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+.testimonial-card {
+  background: var(--glass-surface-1);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all var(--transition-normal);
+}
+
+.testimonial-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--brand-secondary);
+  box-shadow: var(--shadow-glow-primary);
+}
+
+.testimonial-stars {
+  color: #F59E0B;
+  margin-bottom: var(--space-3);
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.author-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--gradient-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+}
+
+/* --- Footer --- */
+.landing-footer {
+  background: rgba(9, 13, 22, 0.95);
+  border-top: 1px solid var(--glass-border);
+  padding: 80px var(--space-8) 40px;
+}
+
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: var(--space-8);
+  margin-bottom: 60px;
+}
+
+.footer-bottom {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-top: 30px;
+  border-top: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+/* Landing Responsive Queries */
+@media (max-width: 1024px) {
+  .hero-section {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding-top: 60px;
+  }
+  .hero-badge {
+    align-self: center;
+  }
+  .hero-subheading {
+    margin: 0 auto;
+  }
+  .hero-cta-group {
+    justify-content: center;
+  }
+  .problem-grid, .stats-grid, .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .solution-grid {
+    grid-template-columns: 1fr;
+  }
+  .footer-inner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .problem-grid, .stats-grid, .testimonials-grid, .footer-inner {
+    grid-template-columns: 1fr;
+  }
+  .nav-links {
+    display: none; /* Mobile navigation toggle can be added */
+  }
+  .landing-navbar {
+    padding: 0 var(--space-4);
+  }
+  .hero-headline {
+    font-size: 2.2rem;
+  }
+}

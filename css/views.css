@@ -1,0 +1,409 @@
+/* ==========================================
+   STUDIVO VIEWS - Specific Feature Layouts
+   ========================================== */
+
+/* --- 1. Career View Styles --- */
+/* Kanban Board */
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  align-items: start;
+  overflow-x: auto;
+  padding-bottom: var(--space-4);
+}
+
+.kanban-column {
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.kanban-column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--glass-border);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-sm);
+}
+
+.kanban-count {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.kanban-card {
+  background: var(--glass-surface-2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-4);
+  cursor: grab;
+  transition: all var(--transition-fast);
+}
+
+.kanban-card:hover {
+  border-color: var(--glass-border-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.job-company {
+  font-size: var(--text-xs);
+  color: var(--brand-primary);
+  font-weight: var(--weight-semibold);
+}
+
+.job-title {
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  margin: var(--space-1) 0;
+}
+
+.job-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin-top: var(--space-3);
+}
+
+/* Flashcards 3D Flip */
+.flashcard-container {
+  perspective: 1000px;
+  width: 100%;
+  max-width: 480px;
+  height: 280px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.flashcard {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.flashcard.flipped {
+  transform: rotateY(180deg);
+}
+
+.flashcard-front, .flashcard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  background: var(--glass-surface-1);
+  border: 1px solid var(--glass-border-light);
+  box-shadow: var(--shadow-lg), var(--shadow-glow-primary);
+}
+
+.flashcard-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+/* --- 2. Wellness View Styles --- */
+/* Focus Pomodoro Timer Circle */
+.timer-display-wrapper {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  margin: 0 auto var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.timer-bg-circle {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.05);
+  stroke-width: 10;
+}
+
+.timer-progress-circle {
+  fill: none;
+  stroke: url(#timerGradient);
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 690;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s linear;
+}
+
+.timer-time {
+  position: absolute;
+  font-family: var(--font-heading);
+  font-size: var(--text-5xl);
+  font-weight: var(--weight-extrabold);
+  letter-spacing: -0.03em;
+}
+
+/* Ambient Sound Selector Buttons */
+.ambient-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.ambient-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--glass-surface-2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+}
+
+.ambient-btn.active {
+  background: rgba(99, 102, 241, 0.2);
+  border-color: var(--brand-primary);
+  color: var(--text-main);
+  box-shadow: var(--shadow-glow-primary);
+}
+
+/* Breathing Orb */
+.breathing-orb-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+}
+
+.breathing-orb {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: var(--gradient-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: var(--weight-bold);
+  font-size: var(--text-lg);
+  box-shadow: 0 0 30px rgba(236, 72, 153, 0.4);
+  transition: transform 0.5s ease;
+}
+
+.breathing-orb.animating {
+  animation: breatheAnimation 19s infinite ease-in-out;
+}
+
+.breathing-phase-text {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-extrabold);
+  margin-top: var(--space-6);
+}
+
+/* Mood Grid Selector */
+.mood-selector {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin: var(--space-4) 0;
+}
+
+.mood-option {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--glass-surface-2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 1.8rem;
+  transition: all var(--transition-fast);
+}
+
+.mood-option:hover, .mood-option.selected {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: var(--brand-secondary);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-glow-primary);
+}
+
+/* --- 3. Finance View Styles --- */
+.expense-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  background: var(--glass-surface-2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-2);
+}
+
+.expense-category-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  background: rgba(99, 102, 241, 0.12);
+  color: var(--brand-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.expense-amount {
+  font-weight: var(--weight-bold);
+  font-size: var(--text-base);
+  color: var(--status-danger);
+}
+
+/* --- 4. Gamification & Quests View --- */
+.quest-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background: var(--glass-surface-2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-3);
+  transition: all var(--transition-fast);
+}
+
+.quest-card:hover {
+  border-color: var(--glass-border-light);
+}
+
+.quest-card.completed {
+  opacity: 0.65;
+  background: rgba(16, 185, 129, 0.05);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.store-item-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  background: var(--glass-surface-2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-normal);
+}
+
+.store-item-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--brand-accent);
+  box-shadow: var(--shadow-glow-accent);
+}
+
+/* --- 5. Design System Showcase View --- */
+.styleguide-section {
+  margin-bottom: var(--space-12);
+}
+
+.styleguide-title {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: var(--space-4);
+}
+
+.swatch-card {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-surface-2);
+}
+
+.swatch-color {
+  height: 90px;
+  width: 100%;
+}
+
+.swatch-meta {
+  padding: var(--space-3);
+}
+
+.swatch-name {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  color: var(--text-main);
+}
+
+.swatch-hex {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-family: monospace;
+}
+
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: var(--space-3);
+}
+
+.icon-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--glass-surface-2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.icon-card:hover {
+  background: rgba(99, 102, 241, 0.15);
+  border-color: var(--brand-primary);
+  color: #FFFFFF;
+}
+
+.icon-card span {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}

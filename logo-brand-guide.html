@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studivo — Brand Identity & Official Logo System</title>
+  <meta name="description" content="Official Brand Identity Guidelines and Vector Logo System for Studivo Student Success Platform.">
+  
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/landing.css">
+  <style>
+    .brand-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6);
+    }
+
+    .brand-deliverable-card {
+      background: var(--glass-surface-1);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-deliverable-card.light-bg {
+      background: #FFFFFF;
+      border-color: #E2E8F0;
+    }
+
+    .brand-deliverable-card.dark-bg {
+      background: #0F172A;
+      border-color: rgba(255,255,255,0.1);
+    }
+
+    .deliverable-preview-box {
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-4);
+      width: 100%;
+    }
+
+    .swatch-chip {
+      height: 100px;
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: var(--space-3);
+      color: white;
+      font-weight: bold;
+      box-shadow: var(--shadow-sm);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- STICKY NAVBAR -->
+  <nav class="landing-navbar">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/logo/logo-horizontal.svg" alt="Studivo Logo" height="38">
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="career.html">Career Hub</a></li>
+      <li><a href="wellness.html">Wellness Hub</a></li>
+      <li><a href="finance.html">Finance Hub</a></li>
+      <li><a href="app.html">App Studio</a></li>
+    </ul>
+
+    <div style="display: flex; align-items: center; gap: var(--space-4);">
+      <a href="app.html" class="btn btn-primary btn-pulse">Launch App Studio ▶</a>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <section class="landing-section" style="padding-top: 60px; padding-bottom: 40px;">
+    <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+      <span class="badge badge-accent" style="margin-bottom: var(--space-3);">Official Brand Guidelines</span>
+      <h1 class="gradient-text" style="font-size: clamp(2.2rem, 4vw, 3.5rem); margin-bottom: var(--space-3);">
+        Studivo Logo System & Identity
+      </h1>
+      <p style="font-size: var(--text-lg); color: var(--text-muted);">
+        A modern, minimal, startup brand symbol representing <strong>Growth, Pathways, Achievement, and Progress</strong>.
+      </p>
+    </div>
+  </section>
+
+  <!-- BRAND COLOR PALETTE -->
+  <section class="landing-section" style="padding-top: 0; padding-bottom: var(--space-8);">
+    <div class="glass-panel" style="padding: var(--space-6);">
+      <h3 style="margin-bottom: var(--space-4);">🎨 Official Brand Palette</h3>
+      
+      <div class="grid-4" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-4);">
+        <div class="swatch-chip" style="background: #6C63FF;">
+          <span style="font-size: var(--text-xs);">Primary Purple</span>
+          <span style="font-size: 0.75rem; font-family: monospace;">#6C63FF</span>
+        </div>
+        <div class="swatch-chip" style="background: #8B5CF6;">
+          <span style="font-size: var(--text-xs);">Accent Violet</span>
+          <span style="font-size: 0.75rem; font-family: monospace;">#8B5CF6</span>
+        </div>
+        <div class="swatch-chip" style="background: #22D3EE; color: #0F172A;">
+          <span style="font-size: var(--text-xs);">Highlight Cyan</span>
+          <span style="font-size: 0.75rem; font-family: monospace;">#22D3EE</span>
+        </div>
+        <div class="swatch-chip" style="background: #0F172A; border: 1px solid rgba(255,255,255,0.1);">
+          <span style="font-size: var(--text-xs);">Dark Background</span>
+          <span style="font-size: 0.75rem; font-family: monospace;">#0F172A</span>
+        </div>
+        <div class="swatch-chip" style="background: #FFFFFF; color: #0F172A; border: 1px solid #CBD5E1;">
+          <span style="font-size: var(--text-xs);">Light Background</span>
+          <span style="font-size: 0.75rem; font-family: monospace;">#FFFFFF</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 DELIVERABLES SHOWCASE GRID -->
+  <section class="landing-section" style="padding-top: 0;">
+    <h2 style="margin-bottom: var(--space-6);">Complete Logo Deliverables (10 Items)</h2>
+
+    <div class="brand-grid">
+      
+      <!-- 1. Main Logo -->
+      <div class="brand-deliverable-card">
+        <span class="badge badge-primary" style="position: absolute; top: 16px; left: 16px;">1. Main Logo</span>
+        <div class="deliverable-preview-box">
+          <img src="assets/logo/logo-main.svg" alt="Studivo Main Logo" style="max-width: 85%;">
+        </div>
+        <h4>Main Scalable Logo</h4>
+        <p style="font-size: var(--text-xs); color: var(--text-muted); margin-top: 4px;">Primary SVG lockup for desktop web headers and marketing hero sections.</p>
+      </div>
+
+      <!-- 2. Logo Icon -->
+      <div class="brand-deliverable-card">
+        <span class="badge badge-primary" style="position: absolute; top: 16px; left: 16px;">2. Logo Icon</span>
+        <div class="deliverable-preview-box">
+          <img src="assets/logo/logo-icon.svg" alt="Studivo Logo Icon" style="height: 120px;">
+        </div>
+        <h4>Abstract Symbol Mark</h4>
+        <p style="font-size: var(--text-xs); color: var(--text-muted); margin-top: 4px;">Standalone geometric "S" growth symbol with ascending achievement node.</p>
+      </div>
+
+      <!-- 3. Horizontal Version -->
+      <div class="brand-deliverable-card">
+        <span class="badge badge-primary" style="position: absolute; top: 16px; left: 16px;">3. Horizontal Version</span>
+        <div class="deliverable-preview-box">
+          <img src="assets/logo/logo-horizontal.svg" alt="Studivo Horizontal Logo" style="max-width: 90%;">
+        </div>
+        <h4>Horizontal Lockup</h4>
+        <p style="font-size: var(--text-xs); color: var(--text-muted); margin-top: 4px;">Optimized for top navigation bars and compact document headers.</p>
+      </div>
+
+      <!-- 4. Vertical Version -->
+      <div class="brand-deliverable-card">
+        <span class="badge badge-primary" style="position: absolute; top: 16px; left: 16px;">4. Vertical Version</span>
+        <div class="deliverable-preview-box">
+          <img src="assets/logo/logo-vertical.svg" alt="Studivo Vertical Logo" style="height: 160px;">
+        </div>
+        <h4>Vertical Stacked Lockup</h4>
+        <p style="font-size: var(--text-xs); color: var(--text-muted); margin-top: 4px;">Centered lockup for splash screens, mobile drawers, and app icons.</p>
+      </div>
+
+      <!-- 5. Monogram "S" -->
+      <div class="brand-deliverable-card">
+        <span class="badge badge-primary" style="position: absolute; top: 16px; left: 16px;">5. Monogram "S"</span>
+        <div class="deliverable-preview-box">
+          <img src="assets/logo/logo-monogram.svg" alt="Studivo Monogram S" style="height: 90px;">
+        </div>
+        <h4>Monogram "S" Mark</h4>
+        <p style="font-size: var(--text-xs); color: var(--text-muted); margin-top: 4px;">Minimalist rounded square avatar mark for social profiles and app stores.</p>
+      </div>
+
+      <!-- 6. Favicon (32x32) -->
+      <div class="brand-deliverable-card">
+        <span class="badge badge-primary" style="position: absolute; top: 16px; left: 16px;">6. Favicon (32×32)</span>
+        <div class="deliverable-preview-box" style="gap: var(--space-4);">
+          <img src="assets/logo/favicon.svg" alt="Favicon 32x32" style="width: 32px; height: 32px;">
+          <img src="assets/logo/favicon.svg" alt="Favicon 64x64" style="width: 64px; height: 64px;">
+        </div>
+        <h4>Crisp 32×32 Favicon</h4>
+        <p style="font-size: var(--text-xs); color: var(--text-muted); margin-top: 4px;">Ultra-legible browser tab icon at 16px, 32px, and retina sizes.</p>
+      </div>
+
+      <!-- 7. SVG Version -->
+      <div class="brand-deliverable-card">
+        <span class="badge badge-accent" style="position: absolute; top: 16px; left: 16px;">7. Pure Vector SVG</span>
+        <div class="deliverable-preview-box">
+          <img src="assets/logo/logo-main.svg" alt="Vector SVG" style="max-width: 80%;">
+        </div>
+        <h4>100% Scalable Vector SVG</h4>
+        <p style="font-size: var(--text-xs); color: var(--text-muted); margin-top: 4px;">Resolution independent, zero distortion, lightweight vector graphic.</p>
+      </div>
+
+      <!-- 8. Transparent Background Version -->
+      <div class="brand-deliverable-card" style="background: repeating-conic-gradient(#1E293B 0% 25%, #0F172A 0% 50%) 50% / 20px 20px;">
+        <span class="badge badge-success" style="position: absolute; top: 16px; left: 16px;">8. Transparent Version</span>
+        <div class="deliverable-preview-box">
+          <img src="assets/logo/logo-main.svg" alt="Transparent Logo" style="max-width: 80%;">
+        </div>
+        <h4 style="color: white;">Transparent Background</h4>
+        <p style="font-size: var(--text-xs); color: #94A3B8; margin-top: 4px;">Overlay compatible over any custom background or video frame.</p>
+      </div>
+
+      <!-- 9. Light Theme Version -->
+      <div class="brand-deliverable-card light-bg">
+        <span class="badge badge-primary" style="position: absolute; top: 16px; left: 16px;">9. Light Theme Version</span>
+        <div class="deliverable-preview-box">
+          <img src="assets/logo/logo-light.svg" alt="Light Theme Logo" style="max-width: 90%;">
+        </div>
+        <h4 style="color: #0F172A;">Light Canvas (#FFFFFF)</h4>
+        <p style="font-size: var(--text-xs); color: #64748B; margin-top: 4px;">Optimized for white PDF reports, email templates, and light mode interfaces.</p>
+      </div>
+
+      <!-- 10. Dark Theme Version -->
+      <div class="brand-deliverable-card dark-bg">
+        <span class="badge badge-primary" style="position: absolute; top: 16px; left: 16px;">10. Dark Theme Version</span>
+        <div class="deliverable-preview-box">
+          <img src="assets/logo/logo-dark.svg" alt="Dark Theme Logo" style="max-width: 90%;">
+        </div>
+        <h4>Dark Canvas (#0F172A)</h4>
+        <p style="font-size: var(--text-xs); color: var(--text-muted); margin-top: 4px;">Optimized for dark mode glassmorphism interfaces and IDE dashboards.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ICON READABILITY & SCALING TEST -->
+  <section class="landing-section" style="padding-top: 0;">
+    <div class="glass-panel" style="padding: var(--space-6); text-align: center;">
+      <h3 style="margin-bottom: var(--space-2);">Icon Scalability & Small-Size Legibility Test</h3>
+      <p style="font-size: var(--text-xs); color: var(--text-muted); margin-bottom: var(--space-6);">Testing symbol recognition across standard icon sizes (16px to 128px).</p>
+
+      <div style="display: flex; align-items: flex-end; justify-content: center; gap: var(--space-8); flex-wrap: wrap;">
+        <div>
+          <img src="assets/logo/favicon.svg" alt="16px" style="width: 16px; height: 16px;">
+          <div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 4px;">16px</div>
+        </div>
+        <div>
+          <img src="assets/logo/favicon.svg" alt="24px" style="width: 24px; height: 24px;">
+          <div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 4px;">24px</div>
+        </div>
+        <div>
+          <img src="assets/logo/favicon.svg" alt="32px" style="width: 32px; height: 32px;">
+          <div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 4px;">32px</div>
+        </div>
+        <div>
+          <img src="assets/logo/logo-icon.svg" alt="48px" style="width: 48px; height: 48px;">
+          <div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 4px;">48px</div>
+        </div>
+        <div>
+          <img src="assets/logo/logo-icon.svg" alt="64px" style="width: 64px; height: 64px;">
+          <div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 4px;">64px</div>
+        </div>
+        <div>
+          <img src="assets/logo/logo-icon.svg" alt="128px" style="width: 128px; height: 128px;">
+          <div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 4px;">128px</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="landing-footer">
+    <div class="footer-bottom" style="max-width: 1280px; margin: 0 auto;">
+      <div>© 2026 Studivo Official Brand System. All Vector Logo Assets Delivered.</div>
+      <div style="display: flex; gap: var(--space-4);">
+        <a href="index.html">Landing Page</a>
+        <a href="app.html">App Studio ▶</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

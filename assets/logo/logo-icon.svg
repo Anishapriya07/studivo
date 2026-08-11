@@ -1,0 +1,31 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="studivoGrad1" x1="16" y1="16" x2="112" y2="112" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6C63FF"/>
+      <stop offset="50%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <linearGradient id="studivoGrad2" x1="112" y1="16" x2="16" y2="112" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="100%" stop-color="#6C63FF"/>
+    </linearGradient>
+    <filter id="iconGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Glow Element -->
+  <circle cx="64" cy="64" r="48" fill="url(#studivoGrad1)" opacity="0.12" filter="url(#iconGlow)"/>
+
+  <!-- Geometric Abstract 'S' Monogram - Upper Loop -->
+  <path d="M78 28C60 28 42 36 34 50C28 60 30 72 40 78L64 92C74 98 84 104 76 114C70 120 54 122 40 114" 
+        fill="none" stroke="url(#studivoGrad1)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Lower Counter-Loop Geometric Pathway -->
+  <path d="M42 36C52 24 74 18 90 26C102 32 106 46 98 58L74 94C68 104 60 112 44 114" 
+        fill="none" stroke="url(#studivoGrad2)" stroke-width="12" stroke-linecap="round" opacity="0.85"/>
+
+  <!-- Ascending Achievement Growth Spark -->
+  <circle cx="92" cy="34" r="8" fill="#22D3EE"/>
+</svg>

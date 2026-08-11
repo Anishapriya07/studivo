@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studivo — Gamification & Achievement Rewards Center</title>
+  <meta name="description" content="Unified gamification hub connecting Career, Wellness, and Finance with XP leveling, 20 achievements, challenges, and local student leaderboards.">
+  
+  <!-- Theme Engine & Auth Scripts in Head for Zero-Flash Theme Paint -->
+  <script src="js/theme-engine.js"></script>
+  <script src="js/auth.js"></script>
+
+  <!-- CSS Design System & Custom Styles -->
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/landing.css">
+  <style>
+    .achievement-badge-card {
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+      background: var(--glass-surface-1);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--transition-normal);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .achievement-badge-card.unlocked {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: rgba(16, 185, 129, 0.08);
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.15);
+    }
+
+    .achievement-badge-card.locked {
+      opacity: 0.65;
+      filter: grayscale(0.4);
+    }
+
+    .achievement-badge-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .badge-icon-box {
+      font-size: 2.2rem;
+      margin-bottom: var(--space-2);
+      transition: transform 0.3s ease;
+    }
+
+    .achievement-badge-card:hover .badge-icon-box {
+      transform: scale(1.2) rotate(6deg);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== STICKY NAVBAR ==================== -->
+  <nav class="landing-navbar">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/logo/logo-horizontal.svg" alt="Studivo Logo" height="38">
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Dashboard</a></li>
+      <li><a href="career.html">Career Hub</a></li>
+      <li><a href="wellness.html">Wellness Hub</a></li>
+      <li><a href="finance.html">Finance Hub</a></li>
+      <li><a href="gamification.html" class="active">Gamification Hub</a></li>
+      <li><a href="knowledge.html">Knowledge Hub</a></li>
+    </ul>
+
+    <div style="display: flex; align-items: center; gap: var(--space-4);">
+      <!-- Sun/Moon Theme Toggle Control -->
+      <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Light and Dark Theme" title="Switch Light / Dark Theme">
+        <div class="theme-toggle-thumb">
+          <span class="theme-icon-sun">☀️</span>
+          <span class="theme-icon-moon">🌙</span>
+        </div>
+      </button>
+
+      <a href="app.html" class="btn btn-primary btn-pulse">Launch App Studio ▶</a>
+    </div>
+  </nav>
+
+  <!-- ==================== HEADER BANNER & XP HUD ==================== -->
+  <section class="landing-section" style="padding-top: 60px; padding-bottom: 30px;">
+    <div style="text-align: center; max-width: 780px; margin: 0 auto;">
+      <span class="badge badge-warning" style="margin-bottom: var(--space-3);">Unified Gamification Center</span>
+      <h1 class="gradient-text" style="font-size: clamp(2.2rem, 4vw, 3.5rem); margin-bottom: var(--space-3);">
+        Quests, Badges & Leaderboards
+      </h1>
+      <p style="font-size: var(--text-lg); color: var(--text-muted);">
+        Every action in Career, Wellness, and Finance earns XP. Unlock achievements, complete daily challenges, and rise up the student rankings!
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== TOP HUD & COMPLETION GAUGE ==================== -->
+  <section class="landing-section" style="padding-top: 0; padding-bottom: var(--space-8);">
+    <div class="grid-2">
+      
+      <!-- User Level & XP Progress Card -->
+      <div class="glass-panel" style="padding: var(--space-6); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
+            <div style="display: flex; align-items: center; gap: var(--space-3);">
+              <div class="avatar-circle" style="width: 48px; height: 48px; font-size: 1rem;">AR</div>
+              <div>
+                <h3 style="font-size: var(--text-xl);">Alex Rivers (You)</h3>
+                <span class="badge badge-primary" id="user-level-display">Lvl 3 Student Explorer</span>
+              </div>
+            </div>
+            <div class="badge badge-warning" style="padding: var(--space-2) var(--space-4); font-size: var(--text-sm);" id="user-streak-display">
+              5 Days 🔥
+            </div>
+          </div>
+
+          <div style="margin-top: var(--space-4);">
+            <div style="display: flex; justify-content: space-between; font-size: var(--text-xs); margin-bottom: var(--space-1);">
+              <span class="text-muted">XP Progress to Next Level</span>
+              <span style="font-weight: bold; color: var(--brand-secondary);" id="user-xp-display">450 / 800 XP</span>
+            </div>
+            <div style="background: rgba(255,255,255,0.06); height: 12px; border-radius: 6px; overflow: hidden;">
+              <div id="user-xp-bar" style="width: 56%; height: 100%; background: var(--gradient-primary); transition: width 0.5s ease;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Global Platform Completion Gauge -->
+      <div class="glass-panel" style="padding: var(--space-6); text-align: center; display: flex; align-items: center; justify-content: space-between;">
+        <div style="text-align: left;">
+          <h3>Platform Completion</h3>
+          <p style="font-size: var(--text-xs); color: var(--text-muted); max-width: 240px; margin-top: 4px;">
+            Percentage of total achievement badges and daily challenges unlocked across Career, Wellness, and Finance.
+          </p>
+        </div>
+
+        <div style="position: relative; width: 120px; height: 120px; flex-shrink: 0;">
+          <svg viewBox="0 0 120 120" style="transform: rotate(-90deg); width: 100%; height: 100%;">
+            <circle class="circle-bg" cx="60" cy="60" r="50"/>
+            <circle class="circle-val" id="completion-ring-circle" cx="60" cy="60" r="50" style="stroke: url(#statGradient1); stroke-dashoffset: 150;"/>
+          </svg>
+          <div class="circle-text-center gradient-text" id="completion-pct-text" style="font-size: var(--text-xl);">25%</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== 20 ACHIEVEMENT BADGES GRID ==================== -->
+  <section class="landing-section" style="padding-top: 0; padding-bottom: var(--space-10);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-6);">
+      <div>
+        <h2>Achievement Badges (20 Goals)</h2>
+        <p style="font-size: var(--text-xs); color: var(--text-muted);">Perform actions across Career, Wellness, and Finance to unlock badges.</p>
+      </div>
+    </div>
+
+    <div class="grid-4" id="badges-grid-container" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4);">
+      <!-- Rendered dynamically via js/gamification-hub-page.js -->
+    </div>
+  </section>
+
+  <!-- ==================== CHALLENGES & LEADERBOARD GRID ==================== -->
+  <section class="landing-section" style="padding-top: 0;">
+    <div class="grid-2">
+      
+      <!-- Left: Daily & Weekly Challenges -->
+      <div class="glass-panel" style="padding: var(--space-6);">
+        <h3 style="margin-bottom: var(--space-2);">Daily Challenges</h3>
+        <p style="font-size: var(--text-xs); color: var(--text-muted); margin-bottom: var(--space-4);">Completing actions in any hub fulfills daily quests.</p>
+
+        <div id="daily-challenges-container" style="margin-bottom: var(--space-6);">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <h3 style="margin-bottom: var(--space-2);">Weekly Challenges</h3>
+        <div id="weekly-challenges-container">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Right: Local Leaderboard & Timeline -->
+      <div class="glass-panel" style="padding: var(--space-6);">
+        <h3 style="margin-bottom: var(--space-2);">Local Student Leaderboard</h3>
+        <p style="font-size: var(--text-xs); color: var(--text-muted); margin-bottom: var(--space-4);">Compete locally with student peers. XP actions raise your rank!</p>
+
+        <div id="leaderboard-list-container" style="margin-bottom: var(--space-6);">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <h3 style="margin-bottom: var(--space-2);">Achievement Timeline</h3>
+        <div id="achievement-timeline-container">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== UNLOCK CELEBRATION MODAL ==================== -->
+  <div class="modal-overlay" id="unlock-modal-overlay">
+    <div class="modal-container" style="text-align: center; padding: var(--space-8);">
+      <div style="font-size: 4rem; margin-bottom: var(--space-2);" id="unlock-modal-icon">🎉</div>
+      <h2 class="gradient-text-accent" style="font-size: var(--text-3xl);">ACHIEVEMENT UNLOCKED!</h2>
+      <p id="unlock-modal-message" style="margin: var(--space-3) 0 var(--space-6); font-size: var(--text-base);">You unlocked a new badge!</p>
+      <button class="btn btn-primary btn-lg" style="width: 100%;" onclick="document.getElementById('unlock-modal-overlay').classList.remove('active')">Claim XP & Continue ▶</button>
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="landing-footer">
+    <div class="footer-bottom" style="max-width: 1280px; margin: 0 auto;">
+      <div>© 2026 Studivo Gamification Hub. 100% Vanilla JS, Local Storage, Zero Backend APIs.</div>
+      <div style="display: flex; gap: var(--space-4);">
+        <a href="index.html">Dashboard</a>
+        <a href="career.html">Career Hub</a>
+        <a href="wellness.html">Wellness Hub</a>
+        <a href="finance.html">Finance Hub</a>
+        <a href="app.html">App Studio ▶</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Module -->
+  <script src="js/gamification-hub-page.js"></script>
+</body>
+</html>

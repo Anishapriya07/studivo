@@ -1,0 +1,27 @@
+<svg width="420" height="110" viewBox="0 0 420 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="mainStudivoGrad" x1="16" y1="16" x2="96" y2="96" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6C63FF"/>
+      <stop offset="50%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <filter id="mainGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Main Logo Mark -->
+  <g transform="translate(10, 8) scale(0.72)">
+    <circle cx="64" cy="64" r="50" fill="url(#mainStudivoGrad)" opacity="0.1" filter="url(#mainGlow)"/>
+    <path d="M78 28C60 28 42 36 34 50C28 60 30 72 40 78L64 92C74 98 84 104 76 114C70 120 54 122 40 114" 
+          fill="none" stroke="url(#mainStudivoGrad)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M42 36C52 24 74 18 90 26C102 32 106 46 98 58L74 94C68 104 60 112 44 114" 
+          fill="none" stroke="url(#mainStudivoGrad)" stroke-width="12" stroke-linecap="round" opacity="0.85"/>
+    <circle cx="92" cy="34" r="8" fill="#22D3EE"/>
+  </g>
+
+  <!-- Typography -->
+  <text x="116" y="66" font-family="'Outfit', 'Plus Jakarta Sans', sans-serif" font-size="48" font-weight="800" fill="#FFFFFF" letter-spacing="-1.5">Studivo</text>
+  <text x="116" y="88" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="700" fill="#94A3B8" letter-spacing="3.5">STUDENT SUCCESS PLATFORM</text>
+</svg>

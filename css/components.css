@@ -1,0 +1,339 @@
+/* ==========================================
+   STUDIVO COMPONENTS - Sidebar & Navigation Polish
+   High-Contrast Light & Dark Theme Adaptation
+   ========================================== */
+
+/* --- App Layout Wrapper --- */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+/* ==================== SIDEBAR LAYOUT & NAVIGATION RIBBON ==================== */
+.app-sidebar {
+  width: 270px;
+  background: var(--bg-tertiary);
+  border-right: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--space-6) var(--space-4);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  transition: background-color var(--transition-theme), border-color var(--transition-theme);
+}
+
+/* Light Mode Sidebar Overrides */
+html[data-theme="light"] .app-sidebar {
+  background: #FFFFFF !important;
+  border-right: 1px solid #E2E8F0 !important;
+  box-shadow: 2px 0 15px rgba(15, 23, 42, 0.04);
+}
+
+/* Dark Mode Sidebar Overrides */
+html[data-theme="dark"] .app-sidebar {
+  background: #111827 !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Sidebar Brand Header */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0 var(--space-2) var(--space-6);
+  border-bottom: 1px solid var(--glass-border);
+  margin-bottom: var(--space-4);
+}
+
+html[data-theme="light"] .sidebar-header {
+  border-bottom-color: #E2E8F0;
+}
+
+/* Light Mode & Dark Mode Brand Text Color Contrast */
+html[data-theme="light"] .brand-title {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+}
+
+html[data-theme="light"] .sidebar-header p,
+html[data-theme="light"] .header-subtitle {
+  color: #475569 !important;
+}
+
+html[data-theme="dark"] .brand-title {
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .sidebar-header p,
+html[data-theme="dark"] .header-subtitle {
+  color: #94A3B8 !important;
+}
+
+/* Nav Section Category Labels */
+.nav-section-title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: var(--space-5) 0 var(--space-2) var(--space-3);
+}
+
+html[data-theme="light"] .nav-section-title {
+  color: #475569;
+}
+
+html[data-theme="dark"] .nav-section-title {
+  color: #94A3B8;
+}
+
+/* Navigation Items & Ribbon Links */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0.75rem 1rem;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  margin-bottom: 4px;
+  opacity: 1 !important;
+}
+
+.nav-icon {
+  font-size: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  transition: color 250ms ease, transform 200ms ease;
+  opacity: 1 !important;
+}
+
+/* Light Mode Nav Link States */
+html[data-theme="light"] .nav-link {
+  color: #1E293B;
+  border-left: 4px solid transparent;
+}
+
+html[data-theme="light"] .nav-link .nav-icon {
+  color: #334155;
+}
+
+html[data-theme="light"] .nav-link:hover {
+  background: #F1F5F9;
+  color: #6C63FF;
+  transform: translateX(3px);
+}
+
+html[data-theme="light"] .nav-link:hover .nav-icon {
+  color: #6C63FF;
+  transform: scale(1.12);
+}
+
+html[data-theme="light"] .nav-link.active {
+  background: #EEF2FF;
+  color: #6C63FF;
+  font-weight: 700;
+  border-left: 4px solid #6C63FF;
+  box-shadow: 0 3px 12px rgba(108, 99, 255, 0.15);
+}
+
+html[data-theme="light"] .nav-link.active .nav-icon {
+  color: #6C63FF;
+}
+
+/* Dark Mode Nav Link States */
+html[data-theme="dark"] .nav-link {
+  color: #E2E8F0;
+  border-left: 4px solid transparent;
+}
+
+html[data-theme="dark"] .nav-link .nav-icon {
+  color: #CBD5E1;
+}
+
+html[data-theme="dark"] .nav-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+  transform: translateX(3px);
+}
+
+html[data-theme="dark"] .nav-link:hover .nav-icon {
+  color: #6C63FF;
+  transform: scale(1.12);
+}
+
+html[data-theme="dark"] .nav-link.active {
+  background: var(--gradient-primary);
+  color: #FFFFFF;
+  font-weight: 700;
+  border-left: 4px solid #EC4899;
+  box-shadow: 0 4px 16px rgba(108, 99, 255, 0.35);
+}
+
+html[data-theme="dark"] .nav-link.active .nav-icon {
+  color: #FFFFFF;
+}
+
+/* Sidebar Footer & User Profile Card */
+.user-profile-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: var(--glass-surface-2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+}
+
+html[data-theme="light"] .user-profile-card {
+  background: #F8FAFC;
+  border-color: #E2E8F0;
+}
+
+html[data-theme="dark"] .user-profile-card {
+  background: #1E293B;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.avatar-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-xs);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.avatar-online-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #10B981;
+  border: 2px solid var(--bg-primary);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+/* ==================== MAIN CONTENT & TOP HEADER ==================== */
+.app-main {
+  flex: 1;
+  margin-left: 270px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-header {
+  height: 70px;
+  background: var(--glass-surface-1);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-8);
+  position: sticky;
+  top: 0;
+  z-index: 90;
+}
+
+html[data-theme="light"] .top-header {
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom-color: #E2E8F0;
+}
+
+html[data-theme="dark"] .top-header {
+  background: rgba(17, 24, 39, 0.85);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Gamification Topbar Status HUD */
+.gamification-hud {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.hud-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.4rem 0.8rem;
+  background: var(--glass-surface-2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: bold;
+}
+
+html[data-theme="light"] .hud-item {
+  background: #F1F5F9;
+  border-color: #CBD5E1;
+  color: #0F172A;
+}
+
+html[data-theme="dark"] .hud-item {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #F8FAFC;
+}
+
+.level-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  background: var(--gradient-primary);
+  color: white;
+  font-weight: bold;
+  font-size: var(--text-xs);
+}
+
+/* Content Area */
+.content-wrapper {
+  padding: var(--space-8);
+  flex: 1;
+}
+
+/* Mobile Sidebar Drawer Navigation */
+.mobile-nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+@media (max-width: 992px) {
+  .app-sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  .app-sidebar.open {
+    transform: translateX(0);
+  }
+  .app-main {
+    margin-left: 0;
+  }
+  .mobile-nav-toggle {
+    display: block;
+  }
+}

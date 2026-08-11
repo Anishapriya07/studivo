@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studivo — Mental Wellness & Self-Care Hub</title>
+  <meta name="description" content="Track daily mood, journal reflections, build habits, monitor water intake, and practice 4-7-8 CSS breathing exercises completely offline.">
+  
+  <!-- Theme Engine & Auth Scripts in Head for Zero-Flash Theme Paint -->
+  <script src="js/theme-engine.js"></script>
+  <script src="js/auth.js"></script>
+
+  <!-- CSS Design System & Custom Styles -->
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/landing.css">
+  <style>
+    /* Animated Mood Emojis */
+    .mood-card-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: var(--space-4);
+      cursor: pointer;
+      border: 1px solid var(--glass-border);
+      transition: all var(--transition-normal);
+      border-radius: var(--radius-md);
+      text-align: center;
+    }
+
+    .mood-card-item:hover, .mood-card-item.selected {
+      border-color: var(--brand-accent);
+      background: rgba(236, 72, 153, 0.15);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-glow-accent);
+    }
+
+    .animated-mood-emoji {
+      font-size: 2.5rem;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .mood-card-item:hover .animated-mood-emoji {
+      animation: emojiBounce 0.6s infinite alternate;
+    }
+
+    @keyframes emojiBounce {
+      from { transform: translateY(0) scale(1); }
+      to { transform: translateY(-8px) scale(1.15); }
+    }
+
+    /* Water Glass Icon Grid */
+    .water-glass-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      opacity: 0.35;
+    }
+
+    .water-glass-icon.filled {
+      opacity: 1;
+      background: rgba(6, 182, 212, 0.2);
+      border-color: var(--brand-cyan);
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+      transform: scale(1.05);
+    }
+
+    /* Pure CSS Keyframe Breathing Orb */
+    .css-breathing-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-8);
+    }
+
+    .css-breathing-orb {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: var(--gradient-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: var(--text-lg);
+      box-shadow: 0 0 25px rgba(236, 72, 153, 0.4);
+    }
+
+    .css-breathing-orb.active-breathing-css {
+      animation: cssBreatheCircle 19s infinite ease-in-out;
+    }
+
+    @keyframes cssBreatheCircle {
+      0% { transform: scale(1); box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); }
+      21% { transform: scale(1.45); box-shadow: 0 0 60px rgba(236, 72, 153, 0.8); }
+      58% { transform: scale(1.45); box-shadow: 0 0 60px rgba(139, 92, 246, 0.8); }
+      100% { transform: scale(1); box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== STICKY NAVBAR ==================== -->
+  <nav class="landing-navbar">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/logo/logo-horizontal.svg" alt="Studivo Logo" height="38">
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Dashboard</a></li>
+      <li><a href="career.html">Career Hub</a></li>
+      <li><a href="wellness.html" class="active">Wellness Hub</a></li>
+      <li><a href="finance.html">Finance Hub</a></li>
+      <li><a href="gamification.html">Gamification Hub</a></li>
+      <li><a href="knowledge.html">Knowledge Hub</a></li>
+    </ul>
+
+    <div style="display: flex; align-items: center; gap: var(--space-4);">
+      <!-- Sun/Moon Theme Toggle Control -->
+      <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Light and Dark Theme" title="Switch Light / Dark Theme">
+        <div class="theme-toggle-thumb">
+          <span class="theme-icon-sun">☀️</span>
+          <span class="theme-icon-moon">🌙</span>
+        </div>
+      </button>
+
+      <a href="app.html" class="btn btn-primary btn-pulse">Launch App Studio ▶</a>
+    </div>
+  </nav>
+
+  <!-- ==================== HEADER BANNER ==================== -->
+  <section class="landing-section" style="padding-top: 60px; padding-bottom: 30px;">
+    <div style="text-align: center; max-width: 780px; margin: 0 auto;">
+      <span class="badge badge-accent" style="margin-bottom: var(--space-3);">Offline Wellness Sanctuary</span>
+      <h1 class="gradient-text-accent" style="font-size: clamp(2.2rem, 4vw, 3.5rem); margin-bottom: var(--space-3);">
+        Mental Wellness & Self-Care Hub
+      </h1>
+      <p style="font-size: var(--text-lg); color: var(--text-muted);">
+        Track daily mood, journal reflections, build habits, monitor water intake, and restore focus with pure CSS 4-7-8 breathing exercises.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== DAILY MOTIVATION CARD ==================== -->
+  <section class="landing-section" style="padding-top: 0; padding-bottom: var(--space-8);">
+    <div class="glass-panel glass-card-glow" style="padding: var(--space-6); background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(139, 92, 246, 0.1)); max-width: 900px; margin: 0 auto;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
+        <div>
+          <span class="badge badge-accent" style="margin-bottom: var(--space-2);">Daily Inspiration</span>
+          <h3 id="motivation-quote-text" style="font-size: var(--text-xl); font-style: italic; margin-top: 4px;">
+            "Small daily habits lead to extraordinary long-term transformations."
+          </h3>
+          <p id="motivation-author-text" style="font-size: var(--text-xs); color: var(--brand-accent); margin-top: 4px;">— James Clear</p>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="wellnessHubPage.nextMotivation()">Next Quote 🔄</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN WELLNESS GRID ==================== -->
+  <section class="landing-section" style="padding-top: 0;">
+    
+    <!-- Top Row: Mood Tracker & Weekly Progress Ring -->
+    <div class="grid-2" style="margin-bottom: var(--space-8);">
+      
+      <!-- 1. Mood Tracker -->
+      <div class="glass-panel" style="padding: var(--space-6);">
+        <h3 style="margin-bottom: var(--space-2);">Daily Mood Tracker</h3>
+        <p style="font-size: var(--text-xs); color: var(--text-muted); margin-bottom: var(--space-4);">Select your current mood to update your weekly wellness index.</p>
+        
+        <div class="grid-5" id="mood-selector-grid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-3);">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- 2. Weekly Wellness Progress Circle -->
+      <div class="glass-panel" style="padding: var(--space-6); text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <h3 style="margin-bottom: var(--space-2);">Weekly Wellness Score</h3>
+        <p style="font-size: var(--text-xs); color: var(--text-muted); margin-bottom: var(--space-4);">Calculated from mood, water intake, and habit completion.</p>
+
+        <div style="position: relative; width: 130px; height: 130px; margin-bottom: var(--space-3);">
+          <svg viewBox="0 0 120 120" style="transform: rotate(-90deg); width: 100%; height: 100%;">
+            <defs>
+              <linearGradient id="wellnessScoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#EC4899"/>
+                <stop offset="100%" stop-color="#6C63FF"/>
+              </linearGradient>
+            </defs>
+            <circle class="circle-bg" cx="60" cy="60" r="50"/>
+            <circle class="circle-val" id="weekly-progress-ring" cx="60" cy="60" r="50" style="stroke: url(#wellnessScoreGrad); stroke-dashoffset: 60;"/>
+          </svg>
+          <div class="circle-text-center gradient-text-accent" id="weekly-progress-score" style="font-size: var(--text-2xl);">85%</div>
+        </div>
+
+        <span style="font-size: var(--text-xs); color: var(--text-muted);" id="weekly-habit-summary">Loading habit progress...</span>
+      </div>
+
+    </div>
+
+    <!-- Middle Row: Water Intake Tracker & Pure CSS Breathing -->
+    <div class="grid-2" style="margin-bottom: var(--space-8);">
+      
+      <!-- 3. Water Intake Tracker -->
+      <div class="glass-panel" style="padding: var(--space-6);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2);">
+          <h3>Water Intake Tracker</h3>
+          <button class="btn btn-ghost btn-sm" onclick="wellnessHubPage.resetWater()">Reset 💧</button>
+        </div>
+        <p style="font-size: var(--text-xs); color: var(--text-muted); margin-bottom: var(--space-4);">Goal: 8 glasses (2,000ml). Tap glasses to log intake.</p>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2);">
+          <span style="font-size: var(--text-sm); font-weight: bold;" id="water-ml-text">1,250 / 2,000 ml</span>
+          <span style="font-size: var(--text-xs); color: var(--brand-cyan);" id="water-pct-text">62%</span>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.06); height: 10px; border-radius: 5px; overflow: hidden; margin-bottom: var(--space-6);">
+          <div id="water-progress-bar" style="width: 62%; height: 100%; background: var(--gradient-emerald); transition: width 0.4s ease;"></div>
+        </div>
+
+        <div id="water-glasses-grid" style="display: flex; gap: var(--space-3); justify-content: space-between;">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- 4. Pure CSS Breathing Exercise -->
+      <div class="glass-panel" style="padding: var(--space-6); text-align: center; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <h3>4-7-8 Pure CSS Breathing</h3>
+          <p style="font-size: var(--text-xs); color: var(--text-muted);">Keyframe animated rhythm. Inhale (4s), Hold (7s), Exhale (8s).</p>
+        </div>
+
+        <div class="css-breathing-container">
+          <div class="css-breathing-orb" id="css-breathing-orb">
+            <span>Breathe</span>
+          </div>
+          <p style="font-size: var(--text-sm); font-weight: bold; margin-top: var(--space-4);" id="css-breathing-phase">Ready to begin</p>
+        </div>
+
+        <div>
+          <button class="btn btn-accent btn-lg" id="css-breathing-btn" onclick="wellnessHubPage.toggleCSSBreathing()">Start CSS Breathing ▶</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Row: Habit Tracker & Journal -->
+    <div class="grid-2">
+      
+      <!-- 5. Habit Tracker Checklist -->
+      <div class="glass-panel" style="padding: var(--space-6);">
+        <h3 style="margin-bottom: var(--space-2);">Daily Habit Checklist</h3>
+        <p style="font-size: var(--text-xs); color: var(--text-muted); margin-bottom: var(--space-4);">Check off daily micro-habits to build momentum.</p>
+
+        <div id="habits-list-container" style="display: flex; flex-direction: column; gap: var(--space-3); margin-bottom: var(--space-6);">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <div style="display: flex; gap: var(--space-2);">
+          <input type="text" class="input-control" id="custom-habit-input" placeholder="Add custom daily habit...">
+          <button class="btn btn-secondary" onclick="
+            wellnessHubPage.addCustomHabit(document.getElementById('custom-habit-input').value);
+            document.getElementById('custom-habit-input').value = '';
+          ">+ Add</button>
+        </div>
+      </div>
+
+      <!-- 6. Daily Reflection Journal -->
+      <div class="glass-panel" style="padding: var(--space-6);">
+        <h3 style="margin-bottom: var(--space-2);">Daily Gratitude Journal</h3>
+        <p style="font-size: var(--text-xs); color: var(--text-muted); margin-bottom: var(--space-4);">Entries stored locally in browser storage.</p>
+
+        <div class="form-group">
+          <label class="form-label">Daily Reflection</label>
+          <input type="text" class="input-control" id="journal-note-input" placeholder="What went well today?">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Gratitude Focus</label>
+          <input type="text" class="input-control" id="journal-gratitude-input" placeholder="What are you grateful for?">
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; margin-bottom: var(--space-6);">
+          <button class="btn btn-primary" onclick="
+            wellnessHubPage.saveJournalEntry(
+              document.getElementById('journal-note-input').value,
+              document.getElementById('journal-gratitude-input').value
+            );
+          ">Save Reflection ✨</button>
+        </div>
+
+        <h4 style="margin-bottom: var(--space-3);">Past Journal Log</h4>
+        <div id="journal-history-container">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="landing-footer">
+    <div class="footer-bottom" style="max-width: 1280px; margin: 0 auto;">
+      <div>© 2026 Studivo Wellness Hub. 100% Offline, Zero APIs, Pure HTML5/CSS3/JS.</div>
+      <div style="display: flex; gap: var(--space-4);">
+        <a href="index.html">Dashboard</a>
+        <a href="career.html">Career Hub</a>
+        <a href="finance.html">Finance Hub</a>
+        <a href="gamification.html">Gamification Hub</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Module -->
+  <script src="js/wellness-hub-page.js"></script>
+</body>
+</html>

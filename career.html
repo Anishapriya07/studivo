@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studivo — Premium Career Explorer & Roadmaps</title>
+  <meta name="description" content="Explore detailed career roadmaps, skill checklists, resume guidelines, portfolio projects, and interview questions for top tech roles.">
+  
+  <!-- Theme Engine & Auth Scripts in Head for Zero-Flash Theme Paint -->
+  <script src="js/theme-engine.js"></script>
+  <script src="js/auth.js"></script>
+
+  <!-- CSS Design System & Custom Styles -->
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/landing.css">
+  <style>
+    .career-explorer-card {
+      position: relative;
+      padding: var(--space-6);
+      border-radius: var(--radius-xl);
+      background: var(--glass-surface-1);
+      border: 1px solid var(--glass-border);
+      transition: all var(--transition-normal);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .career-explorer-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--glass-border-light);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .career-explorer-card.active {
+      border-width: 2px;
+    }
+
+    .career-card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== STICKY NAVBAR ==================== -->
+  <nav class="landing-navbar">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/logo/logo-horizontal.svg" alt="Studivo Logo" height="38">
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Dashboard</a></li>
+      <li><a href="career.html" class="active">Career Hub</a></li>
+      <li><a href="wellness.html">Wellness Hub</a></li>
+      <li><a href="finance.html">Finance Hub</a></li>
+      <li><a href="gamification.html">Gamification Hub</a></li>
+      <li><a href="knowledge.html">Knowledge Hub</a></li>
+    </ul>
+
+    <div style="display: flex; align-items: center; gap: var(--space-4);">
+      <!-- Sun/Moon Theme Toggle Control -->
+      <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Light and Dark Theme" title="Switch Light / Dark Theme">
+        <div class="theme-toggle-thumb">
+          <span class="theme-icon-sun">☀️</span>
+          <span class="theme-icon-moon">🌙</span>
+        </div>
+      </button>
+
+      <a href="app.html" class="btn btn-primary btn-pulse">Launch App Studio ▶</a>
+    </div>
+  </nav>
+
+  <!-- ==================== HEADER BANNER ==================== -->
+  <section class="landing-section" style="padding-top: 60px; padding-bottom: 40px;">
+    <div style="text-align: center; max-width: 780px; margin: 0 auto;">
+      <span class="badge badge-accent" style="margin-bottom: var(--space-3);">Interactive Career Roadmaps</span>
+      <h1 class="gradient-text" style="font-size: clamp(2.2rem, 4vw, 3.5rem); margin-bottom: var(--space-3);">
+        Career Explorer & Skill Tracker
+      </h1>
+      <p style="font-size: var(--text-lg); color: var(--text-muted);">
+        Select a career path below to unlock step-by-step learning timelines, interactive skill checklists, resume & portfolio guides, and technical interview prep.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== CAREER CARDS GRID ==================== -->
+  <section class="landing-section" style="padding-top: 0; padding-bottom: var(--space-10);">
+    <div class="grid-3" id="career-cards-grid">
+      <!-- Rendered dynamically via js/career-hub-page.js -->
+    </div>
+  </section>
+
+  <!-- ==================== DETAILED ROADMAP DISPLAY ==================== -->
+  <section class="landing-section" id="roadmap-detail-section" style="padding-top: 0;">
+    <!-- Rendered dynamically when selecting a career card -->
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="landing-footer">
+    <div class="footer-bottom" style="max-width: 1280px; margin: 0 auto;">
+      <div>© 2026 Studivo Career Hub. Powered by Vanilla Web Technologies & LocalStorage.</div>
+      <div style="display: flex; gap: var(--space-4);">
+        <a href="index.html">Dashboard</a>
+        <a href="wellness.html">Wellness Hub</a>
+        <a href="finance.html">Finance Hub</a>
+        <a href="gamification.html">Gamification Hub</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Module -->
+  <script src="js/career-hub-page.js"></script>
+</body>
+</html>

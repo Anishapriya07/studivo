@@ -1,0 +1,18 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="monoGrad" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6C63FF"/>
+      <stop offset="50%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="64" height="64" rx="16" fill="#0F172A"/>
+
+  <!-- Minimal Monogram S -->
+  <path d="M39 14C30 14 21 18 17 25C14 30 15 36 20 39L32 46C37 49 42 52 38 57C35 60 27 61 20 57" 
+        fill="none" stroke="url(#monoGrad)" stroke-width="7" stroke-linecap="round"/>
+
+  <!-- Spark Node -->
+  <circle cx="46" cy="17" r="4.5" fill="#22D3EE"/>
+</svg>
