@@ -12,6 +12,37 @@ const AUTH_STORAGE_KEY = 'studivo_auth_session_v1';
 class AuthEngine {
   constructor() {
     this.session = this.loadSession();
+    this.enforceRouting();
+  }
+
+  enforceRouting() {
+    const path = window.location.pathname;
+    let page = path.substring(path.lastIndexOf('/') + 1);
+    if (!page || !page.endsWith('.html')) {
+        page = 'index.html';
+    }
+    
+    // Allow unrestricted access to login and brand guide
+    if (page === 'login.html' || page === 'logo-brand-guide.html') {
+       return;
+    }
+
+    // If not logged in, redirect to login
+    if (!this.session || !this.session.isLoggedIn) {
+      window.location.href = 'login.html';
+      return;
+    }
+
+    const adminPages = ['admin-portal.html'];
+    
+    // Admin routing
+    if (this.session.role === 'admin' && !adminPages.includes(page)) {
+      window.location.href = 'admin-portal.html';
+    } 
+    // Student routing
+    else if (this.session.role === 'student' && adminPages.includes(page)) {
+      window.location.href = 'index.html';
+    }
   }
 
   loadSession() {
@@ -19,16 +50,16 @@ class AuthEngine {
       const saved = localStorage.getItem(AUTH_STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (parsed && parsed.isLoggedIn) return parsed;
+        if (parsed) return parsed;
       }
     } catch (e) {}
     
-    // Default default session (Student demo mode for seamless experience)
+    // Default session (Guest mode so they are forced to login)
     return {
-      isLoggedIn: true,
-      role: 'student',
-      username: 'Alex Rivers',
-      loginTime: new Date().toISOString()
+      isLoggedIn: false,
+      role: 'guest',
+      username: 'Guest',
+      loginTime: null
     };
   }
 
@@ -96,16 +127,22 @@ class AuthEngine {
   }
 
   renderNavbarAuthWidget() {
-    const navRight = document.querySelector('.landing-navbar > div:last-child');
-    if (!navRight) return;
+    const navbar = document.querySelector('.landing-navbar');
+    if (!navbar) return;
 
     // Check if auth badge already exists
     let authWidget = document.getElementById('navbar-auth-widget');
     if (!authWidget) {
       authWidget = document.createElement('div');
       authWidget.id = 'navbar-auth-widget';
-      authWidget.style.cssText = 'display: flex; align-items: center; gap: var(--space-3);';
-      navRight.insertBefore(authWidget, navRight.firstChild);
+      authWidget.style.cssText = 'display: flex; align-items: center; gap: var(--space-3); margin-left: auto;';
+      
+      const hamburger = document.getElementById('hamburger-btn');
+      if (hamburger) {
+         hamburger.parentNode.insertBefore(authWidget, hamburger);
+      } else {
+         navbar.appendChild(authWidget);
+      }
     }
 
     if (this.session.isLoggedIn) {

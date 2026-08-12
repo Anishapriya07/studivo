@@ -16,6 +16,8 @@
   transition: background var(--transition-theme), border-color var(--transition-theme), box-shadow var(--transition-theme);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 /* Light Mode SaaS Navbar */
@@ -206,6 +208,8 @@ html[data-theme="dark"] .nav-links a.active {
   align-items: center;
   gap: var(--space-3);
   z-index: 3;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .floating-card-1 {

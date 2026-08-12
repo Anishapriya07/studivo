@@ -239,13 +239,18 @@
             Knowledge Hub
           </h1>
           <p style="font-size: var(--text-lg); color: var(--text-muted); max-width: 620px; margin-bottom: var(--space-5);">
-            Discover curated books or contribute your own summaries and practical takeaways to earn XP and achievement badges.
+            Discover curated books, request new additions, or contribute your own summaries to the library for approval.
           </p>
 
-          <!-- Student Contribution CTA Button -->
-          <button class="btn btn-primary btn-lg" style="border-radius: 14px; box-shadow: var(--shadow-glow-primary);" onclick="knowledgeHubPage.openStudentContributionModal()">
-            ➕ Add My Book (+175 XP)
-          </button>
+          <!-- Student Contribution CTA Buttons -->
+          <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+            <button class="btn btn-primary btn-lg" style="border-radius: 14px; box-shadow: var(--shadow-glow-primary);" onclick="knowledgeHubPage.openStudentContributionModal()">
+              ➕ Add Book
+            </button>
+            <button class="btn btn-secondary btn-lg" style="border-radius: 14px;" onclick="knowledgeHubPage.openRequestBookModal()">
+              ➕ Request a Book
+            </button>
+          </div>
         </div>
 
         <!-- Vector Illustration of Books & Growth -->

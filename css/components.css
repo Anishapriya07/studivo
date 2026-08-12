@@ -255,6 +255,8 @@ html[data-theme="dark"] .user-profile-card {
   position: sticky;
   top: 0;
   z-index: 90;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 html[data-theme="light"] .top-header {

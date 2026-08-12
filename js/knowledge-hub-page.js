@@ -401,11 +401,16 @@ class KnowledgeHubPage {
   }
 
   loadCuratedBooks() {
+    let custom = [];
     try {
       const saved = localStorage.getItem(KNOWLEDGE_CUSTOM_BOOKS_KEY);
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+         custom = JSON.parse(saved);
+      }
     } catch (e) {}
-    return JSON.parse(JSON.stringify(defaultBooksData));
+    
+    // Concatenate admin-added custom books with the built-in defaults
+    return [...custom, ...JSON.parse(JSON.stringify(defaultBooksData))];
   }
 
   loadStudentContributions() {
@@ -965,151 +970,70 @@ class KnowledgeHubPage {
   }
 
   /* --- STUDENT CONTRIBUTION MODAL & SAVE SYSTEM --- */
-  openStudentContributionModal(bookIdToEdit = null) {
-    const isEdit = !!bookIdToEdit;
+  openStudentContributionModal() {
     const modalOverlay = document.getElementById('book-summary-modal');
     const modalContent = document.getElementById('book-summary-modal-content');
     if (!modalOverlay || !modalContent) return;
-
-    const b = (isEdit ? this.studentBooks.find(x => x.id === bookIdToEdit) : null) || {
-      id: 'student-book-' + Date.now(),
-      title: '',
-      author: '',
-      category: 'Productivity',
-      rating: '5.0 / 5',
-      ratingNum: 5.0,
-      readTime: '15 min read',
-      readTimeNum: 15,
-      difficulty: 'Beginner',
-      difficultyNum: 1,
-      coverImageDataUrl: '',
-      coverGradient: 'linear-gradient(135deg, #6C63FF 0%, #EC4899 100%)',
-      icon: '📚',
-      description: '',
-      summary5Min: '',
-      keyTakeaways: ['', '', ''],
-      whoShouldRead: '',
-      skillsLearned: ['Self Improvement'],
-      favoriteQuote: '',
-      personalReview: '',
-      isStudentContribution: true
-    };
 
     modalContent.innerHTML = `
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--glass-border);">
         <div>
           <span class="badge badge-accent" style="margin-bottom: 4px;">Student Contribution</span>
           <h2 class="gradient-text-accent" style="font-size: var(--text-xl); font-weight: 800;">
-            ${isEdit ? '✏️ Edit My Contributed Book' : '➕ Add My Book to Knowledge Hub'}
+            ➕ Add Book
           </h2>
         </div>
         <button class="btn btn-ghost btn-sm" onclick="knowledgeHubPage.closeSummaryModal()">✕</button>
       </div>
 
-      <form onsubmit="knowledgeHubPage.handleStudentFormSubmit(event, '${b.id}', ${isEdit})" style="max-height: 65vh; overflow-y: auto; padding-right: 8px;">
+      <form onsubmit="knowledgeHubPage.handleStudentFormSubmit(event)" style="max-height: 65vh; overflow-y: auto; padding-right: 8px;">
         
         <div style="display: grid; grid-template-columns: 2fr 1fr; gap: var(--space-3); margin-bottom: var(--space-3);">
           <div class="form-group">
             <label class="form-label">📖 Book Title *</label>
-            <input type="text" class="input-control" id="st-title" value="${b.title}" required placeholder="e.g. Master Your Mindset">
+            <input type="text" class="input-control" id="st-title" required placeholder="e.g. Master Your Mindset">
           </div>
 
           <div class="form-group">
             <label class="form-label">✍️ Author Name *</label>
-            <input type="text" class="input-control" id="st-author" value="${b.author}" required placeholder="e.g. Carol Dweck">
-          </div>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-3);">
-          <div class="form-group">
-            <label class="form-label">🏷️ Category *</label>
-            <select class="input-control" id="st-category">
-              <option value="Productivity" ${b.category === 'Productivity' ? 'selected' : ''}>Productivity</option>
-              <option value="Career" ${b.category === 'Career' ? 'selected' : ''}>Career</option>
-              <option value="Programming" ${b.category === 'Programming' ? 'selected' : ''}>Programming</option>
-              <option value="Personal Finance" ${b.category === 'Personal Finance' ? 'selected' : ''}>Personal Finance</option>
-              <option value="Wellness" ${b.category === 'Wellness' ? 'selected' : ''}>Wellness</option>
-              <option value="Communication" ${b.category === 'Communication' ? 'selected' : ''}>Communication</option>
-              <option value="Psychology" ${b.category === 'Psychology' ? 'selected' : ''}>Psychology</option>
-              <option value="Entrepreneurship" ${b.category === 'Entrepreneurship' ? 'selected' : ''}>Entrepreneurship</option>
-              <option value="Other" ${b.category === 'Other' ? 'selected' : ''}>Other</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">⭐ Personal Rating *</label>
-            <select class="input-control" id="st-rating">
-              <option value="5.0 / 5" ${b.rating.startsWith('5') ? 'selected' : ''}>⭐⭐⭐⭐⭐ (5.0 / 5)</option>
-              <option value="4.5 / 5" ${b.rating.startsWith('4.5') ? 'selected' : ''}>⭐⭐⭐⭐✨ (4.5 / 5)</option>
-              <option value="4.0 / 5" ${b.rating.startsWith('4.0') ? 'selected' : ''}>⭐⭐⭐⭐ (4.0 / 5)</option>
-              <option value="3.5 / 5" ${b.rating.startsWith('3.5') ? 'selected' : ''}>⭐⭐⭐✨ (3.5 / 5)</option>
-              <option value="3.0 / 5" ${b.rating.startsWith('3.0') ? 'selected' : ''}>⭐⭐⭐ (3.0 / 5)</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Difficulty Level</label>
-            <select class="input-control" id="st-difficulty">
-              <option value="Beginner" ${b.difficulty === 'Beginner' ? 'selected' : ''}>Beginner</option>
-              <option value="Intermediate" ${b.difficulty === 'Intermediate' ? 'selected' : ''}>Intermediate</option>
-              <option value="Advanced" ${b.difficulty === 'Advanced' ? 'selected' : ''}>Advanced</option>
-            </select>
-          </div>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-3);">
-          <div class="form-group">
-            <label class="form-label">Estimated Read Time</label>
-            <input type="text" class="input-control" id="st-readtime" value="${b.readTime}" placeholder="e.g. 15 min read">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">🖼️ Upload Cover Image (Optional)</label>
-            <input type="file" class="input-control" id="st-cover-file" accept="image/*">
+            <input type="text" class="input-control" id="st-author" required placeholder="e.g. Carol Dweck">
           </div>
         </div>
 
         <div class="form-group" style="margin-bottom: var(--space-3);">
-          <label class="form-label">One-Line Description *</label>
-          <input type="text" class="input-control" id="st-description" value="${b.description}" required placeholder="Concise summary sentence...">
+          <label class="form-label">🏷️ Category *</label>
+          <select class="input-control" id="st-category">
+            <option value="Productivity">Productivity</option>
+            <option value="Career">Career</option>
+            <option value="Programming">Programming</option>
+            <option value="Personal Finance">Personal Finance</option>
+            <option value="Wellness">Wellness</option>
+            <option value="Communication">Communication</option>
+            <option value="Psychology">Psychology</option>
+            <option value="Entrepreneurship">Entrepreneurship</option>
+            <option value="Other">Other</option>
+          </select>
         </div>
 
         <div class="form-group" style="margin-bottom: var(--space-3);">
-          <label class="form-label">📄 5-Minute Summary (Executive Takeaways) *</label>
-          <textarea class="input-control" id="st-summary" rows="3" required placeholder="Write a multi-line 5-minute executive summary of key ideas...">${b.summary5Min}</textarea>
+          <label class="form-label">📄 Short Summary *</label>
+          <textarea class="input-control" id="st-summary" rows="3" required placeholder="Write a short summary..."></textarea>
         </div>
 
         <div class="form-group" style="margin-bottom: var(--space-3);">
-          <label class="form-label">💡 Top 3 Key Takeaways (One per line) *</label>
-          <textarea class="input-control" id="st-takeaways" rows="3" required placeholder="1. First key lesson&#10;2. Second key lesson&#10;3. Third key lesson">${(b.keyTakeaways || []).join('\n')}</textarea>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-3);">
-          <div class="form-group">
-            <label class="form-label">🎯 Who Should Read This?</label>
-            <input type="text" class="input-control" id="st-whoshouldread" value="${b.whoShouldRead}" placeholder="Target student audience...">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">🧠 Skills Learned (Comma separated)</label>
-            <input type="text" class="input-control" id="st-skills" value="${(b.skillsLearned || []).join(', ')}" placeholder="Time Management, Focus">
-          </div>
-        </div>
-
-        <div class="form-group" style="margin-bottom: var(--space-3);">
-          <label class="form-label">💬 Favourite Quote (Optional)</label>
-          <input type="text" class="input-control" id="st-quote" value="${b.favoriteQuote || ''}" placeholder="Inspiring quote from the book...">
+          <label class="form-label">💡 Key Ideas / Notes *</label>
+          <textarea class="input-control" id="st-takeaways" rows="3" required placeholder="List your key ideas and notes here..."></textarea>
         </div>
 
         <div class="form-group" style="margin-bottom: var(--space-4);">
-          <label class="form-label">📝 Personal Review & Student Rating *</label>
-          <textarea class="input-control" id="st-review" rows="2" required placeholder="Write your personal review and why this book helped you grow...">${b.personalReview || ''}</textarea>
+          <label class="form-label">📝 Optional Personal Review</label>
+          <textarea class="input-control" id="st-review" rows="2" placeholder="Write your personal review and why this book helped you grow..."></textarea>
         </div>
 
         <div style="display: flex; gap: var(--space-3); justify-content: flex-end; margin-top: var(--space-4);">
           <button type="button" class="btn btn-ghost" onclick="knowledgeHubPage.closeSummaryModal()">Cancel</button>
           <button type="submit" class="btn btn-primary btn-lg" style="border-radius: 14px;">
-            ${isEdit ? 'Save My Book Changes 💾' : 'Save & Publish My Book (+175 XP) 🚀'}
+            Submit Book for Approval 🚀
           </button>
         </div>
 
@@ -1119,102 +1043,112 @@ class KnowledgeHubPage {
     modalOverlay.classList.add('active');
   }
 
-  handleStudentFormSubmit(e, bookId, isEdit) {
+  handleStudentFormSubmit(e) {
     e.preventDefault();
     const title = document.getElementById('st-title').value;
     const author = document.getElementById('st-author').value;
     const category = document.getElementById('st-category').value;
-    const rating = document.getElementById('st-rating').value;
-    const difficulty = document.getElementById('st-difficulty').value;
-    const readTime = document.getElementById('st-readtime').value || '15 min read';
-    const description = document.getElementById('st-description').value;
-    const summary5Min = document.getElementById('st-summary').value;
-    const takeawaysRaw = document.getElementById('st-takeaways').value;
-    const whoShouldRead = document.getElementById('st-whoshouldread').value;
-    const skillsRaw = document.getElementById('st-skills').value;
-    const favoriteQuote = document.getElementById('st-quote').value;
-    const personalReview = document.getElementById('st-review').value;
+    const summary = document.getElementById('st-summary').value;
+    const notes = document.getElementById('st-takeaways').value;
+    const review = document.getElementById('st-review').value;
 
-    const fileInput = document.getElementById('st-cover-file');
-    
-    const keyTakeaways = takeawaysRaw.split('\n').map(x => x.trim()).filter(Boolean);
-    const skillsLearned = skillsRaw.split(',').map(x => x.trim()).filter(Boolean);
-    const readTimeNum = parseInt(readTime) || 15;
-    const ratingNum = parseFloat(rating) || 5.0;
-    const difficultyNum = difficulty === 'Beginner' ? 1 : difficulty === 'Intermediate' ? 2 : 3;
-
-    const proceedSave = (coverDataUrl = '') => {
-      const existingBook = this.studentBooks.find(b => b.id === bookId);
-
-      const bookData = {
-        id: bookId,
-        title,
-        author,
-        category,
-        rating,
-        ratingNum,
-        readTime,
-        readTimeNum,
-        difficulty,
-        difficultyNum,
-        coverImageDataUrl: coverDataUrl || (existingBook ? existingBook.coverImageDataUrl : ''),
-        coverGradient: 'linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%)',
-        icon: '📚',
-        description,
-        recommendationReason: `Student Contribution by ${window.authEngine ? window.authEngine.getUsername() : 'Alex Rivers'}`,
-        overview: summary5Min,
-        summary5Min,
-        keyTakeaways,
-        whoShouldRead: whoShouldRead || 'Students seeking academic and personal growth.',
-        skillsLearned: skillsLearned.length ? skillsLearned : ['Self Learning', 'Critical Thought'],
-        favoriteQuote,
-        personalReview,
-        realLifeApplications: ['Apply learnings to personal projects', 'Review takeaways monthly'],
-        isStudentContribution: true,
-        createdByStudent: true
-      };
-
-      if (isEdit) {
-        const idx = this.studentBooks.findIndex(b => b.id === bookId);
-        if (idx > -1) this.studentBooks[idx] = bookData;
-      } else {
-        this.studentBooks.unshift(bookData);
-
-        // Gamification XP Rewards
-        this.awardGamificationXP(100, 'Added First Student Book (+100 XP)!');
-        this.awardGamificationXP(50, 'Added Book 5-Minute Summary (+50 XP)!');
-        this.awardGamificationXP(25, 'Added Personal Book Review (+25 XP)!');
-      }
-
-      this.saveStudentContributions();
-      this.closeSummaryModal();
-      this.showToastNotification(isEdit ? `Updated "${title}".` : `Published "${title}" under My Contributions!`);
-      this.renderReadingProgress();
-      this.renderBooks();
+    const bookData = {
+      id: 'student-book-' + Date.now(),
+      title,
+      author,
+      category,
+      summary,
+      notes,
+      personalReview: review,
+      status: 'Pending Approval',
+      submittedBy: window.authEngine ? window.authEngine.getUsername() : 'Student',
+      dateSubmitted: new Date().toISOString()
     };
 
-    if (fileInput && fileInput.files && fileInput.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        proceedSave(event.target.result);
-      };
-      reader.readAsDataURL(fileInput.files[0]);
-    } else {
-      proceedSave();
-    }
+    try {
+      let pendingBooks = [];
+      const saved = localStorage.getItem('studivo_pending_books_v1');
+      if (saved) pendingBooks = JSON.parse(saved);
+      pendingBooks.unshift(bookData);
+      localStorage.setItem('studivo_pending_books_v1', JSON.stringify(pendingBooks));
+    } catch (err) {}
+
+    this.closeSummaryModal();
+    this.showToastNotification(`Book "${title}" submitted and is Pending Approval.`);
   }
 
-  deleteStudentBook(bookId) {
-    const book = this.studentBooks.find(b => b.id === bookId);
-    if (!book) return;
+  openRequestBookModal() {
+    const modalOverlay = document.getElementById('book-summary-modal');
+    const modalContent = document.getElementById('book-summary-modal-content');
+    if (!modalOverlay || !modalContent) return;
 
-    if (confirm(`Are you sure you want to delete your contributed book "${book.title}"?`)) {
-      this.studentBooks = this.studentBooks.filter(b => b.id !== bookId);
-      this.saveStudentContributions();
-      this.showToastNotification(`Deleted "${book.title}" from My Contributions.`);
-      this.renderReadingProgress();
-      this.renderBooks();
-    }
+    modalContent.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--glass-border);">
+        <div>
+          <span class="badge badge-primary" style="margin-bottom: 4px;">Library Request</span>
+          <h2 class="gradient-text" style="font-size: var(--text-xl); font-weight: 800;">
+            ➕ Request a Book
+          </h2>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="knowledgeHubPage.closeSummaryModal()">✕</button>
+      </div>
+
+      <form onsubmit="knowledgeHubPage.handleRequestFormSubmit(event)" style="max-height: 65vh; overflow-y: auto; padding-right: 8px;">
+        
+        <div class="form-group" style="margin-bottom: var(--space-3);">
+          <label class="form-label">📖 Requested Book Title *</label>
+          <input type="text" class="input-control" id="req-title" required placeholder="e.g. The Lean Startup">
+        </div>
+
+        <div class="form-group" style="margin-bottom: var(--space-3);">
+          <label class="form-label">✍️ Author Name (Optional)</label>
+          <input type="text" class="input-control" id="req-author" placeholder="e.g. Eric Ries">
+        </div>
+
+        <div class="form-group" style="margin-bottom: var(--space-4);">
+          <label class="form-label">💡 Reason / Why you want this book *</label>
+          <textarea class="input-control" id="req-reason" rows="3" required placeholder="Why should this book be added to the Knowledge Hub?"></textarea>
+        </div>
+
+        <div style="display: flex; gap: var(--space-3); justify-content: flex-end; margin-top: var(--space-4);">
+          <button type="button" class="btn btn-ghost" onclick="knowledgeHubPage.closeSummaryModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-lg" style="border-radius: 14px;">
+            Submit Request 🚀
+          </button>
+        </div>
+
+      </form>
+    `;
+
+    modalOverlay.classList.add('active');
+  }
+
+  handleRequestFormSubmit(e) {
+    e.preventDefault();
+    const title = document.getElementById('req-title').value;
+    const author = document.getElementById('req-author').value;
+    const reason = document.getElementById('req-reason').value;
+
+    const requestData = {
+      id: 'book-request-' + Date.now(),
+      title,
+      author,
+      reason,
+      status: 'Pending',
+      requestedBy: window.authEngine ? window.authEngine.getUsername() : 'Student',
+      dateRequested: new Date().toISOString()
+    };
+
+    try {
+      let requests = [];
+      const saved = localStorage.getItem('studivo_book_requests_v1');
+      if (saved) requests = JSON.parse(saved);
+      requests.unshift(requestData);
+      localStorage.setItem('studivo_book_requests_v1', JSON.stringify(requests));
+    } catch (err) {}
+
+    this.closeSummaryModal();
+    this.showToastNotification(`Request for "${title}" submitted and is Pending.`);
   }
 
   deleteBook(bookId) {

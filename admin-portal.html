@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studivo — Admin Portal</title>
+  <meta name="description" content="Studivo Admin Dashboard">
+  
+  <script src="js/theme-engine.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/admin-portal.js"></script>
+
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/views.css">
+  <link rel="stylesheet" href="css/landing.css">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <nav class="landing-navbar">
+    <a href="admin-portal.html" class="nav-brand">
+      <img src="assets/logo/logo-horizontal.svg" alt="Studivo Logo" height="38">
+      <span style="margin-left: 12px; font-weight: bold; color: var(--brand-accent); border: 1px solid var(--brand-accent); padding: 4px 8px; border-radius: var(--radius-sm); font-size: var(--text-xs);">ADMIN</span>
+    </a>
+
+    <div style="display: flex; align-items: center; gap: var(--space-4);">
+      <button id="hamburger-btn" class="hamburger-btn" aria-label="Open Menu">
+        ☰
+      </button>
+    </div>
+  </nav>
+
+  <div id="side-menu-overlay" class="side-menu-overlay"></div>
+
+  <aside id="side-menu" class="side-menu">
+    <div class="side-menu-header">
+      <h3 style="margin: 0; font-size: 1.2rem;">Admin Menu</h3>
+      <button id="side-menu-close" class="side-menu-close" aria-label="Close Menu">✖</button>
+    </div>
+    
+    <ul class="side-nav-links">
+      <li><a href="#" class="nav-link active" data-target="dashboard">📊 Dashboard</a></li>
+      <li><a href="#" class="nav-link" data-target="requests">📩 View Requests</a></li>
+      <li><a href="#" class="nav-link" data-target="add-books">➕ Add Books</a></li>
+      <li><a href="#" class="nav-link" data-target="approve-books">✅ Approve Books</a></li>
+    </ul>
+
+    <div class="side-menu-footer">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3);">
+        <span style="font-size: var(--text-sm); font-weight: 600;">Theme</span>
+        <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Light and Dark Theme" title="Switch Light / Dark Theme">
+          <div class="theme-toggle-thumb">
+            <span class="theme-icon-sun">☀️</span>
+            <span class="theme-icon-moon">🌙</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <main style="max-width: 1280px; margin: 0 auto; padding: 40px var(--space-8) 80px; flex: 1; width: 100%;">
+    
+    <!-- 1. DASHBOARD SECTION -->
+    <section id="section-dashboard" class="admin-section">
+      <div class="glass-panel" style="padding: var(--space-6); margin-bottom: var(--space-8); border-top: 4px solid var(--brand-accent);">
+        <h1 style="margin-bottom: var(--space-2); font-size: 2.5rem;">Welcome to Studivo Admin 👋</h1>
+        <p style="color: var(--text-muted); font-size: var(--text-lg); max-width: 800px;">As an administrator, you manage the central Knowledge Hub. Your role is to review and moderate student contributions to ensure a high-quality, curated library for all learners.</p>
+      </div>
+
+      <div class="grid-2">
+        <!-- Support Section -->
+        <div class="glass-panel" style="padding: var(--space-6);">
+          <h3 style="margin-bottom: var(--space-4); color: var(--brand-primary); display: flex; align-items: center; gap: 8px;">🛠️ Support</h3>
+          <ul style="color: var(--text-main); font-size: var(--text-sm); line-height: 1.6; padding-left: 20px;">
+            <li style="margin-bottom: 8px;"><strong>Guidelines:</strong> Always verify factual accuracy and formatting before approving summaries.</li>
+            <li style="margin-bottom: 8px;"><strong>Help / Contact Information:</strong> For technical escalation, reach out to <a href="mailto:support@studivo.admin" style="color: var(--brand-primary);">support@studivo.admin</a>.</li>
+            <li><strong>Basic Support Instructions:</strong> Use the navigation menu to view student requests, add new curated books, or approve pending student books. If an issue arises, check the browser console or clear localStorage.</li>
+          </ul>
+        </div>
+
+        <!-- Terms & Conditions Section -->
+        <div class="glass-panel" style="padding: var(--space-6);">
+          <h3 style="margin-bottom: var(--space-4); color: var(--brand-accent); display: flex; align-items: center; gap: 8px;">📜 Terms & Conditions</h3>
+          <ul style="color: var(--text-main); font-size: var(--text-sm); line-height: 1.6; padding-left: 20px;">
+            <li style="margin-bottom: 8px;">Content should be appropriate for students.</li>
+            <li style="margin-bottom: 8px;">Admin reviews submitted books before publishing.</li>
+            <li style="margin-bottom: 8px;">Student requests can be approved or deleted.</li>
+            <li>Only approved books appear in the public Knowledge Library.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. VIEW REQUESTS SECTION -->
+    <section id="section-requests" class="admin-section" style="display: none;">
+      <h1 style="font-size: 2rem; margin-bottom: var(--space-6);">Student Book Requests</h1>
+      <div id="requests-grid" style="display: grid; grid-template-columns: 1fr; gap: var(--space-4);">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- 3. ADD BOOKS SECTION -->
+    <section id="section-add-books" class="admin-section" style="display: none;">
+      <h1 style="font-size: 2rem; margin-bottom: var(--space-6);">Add Curated Book</h1>
+      
+      <div id="add-book-success" class="glass-panel" style="display: none; padding: var(--space-4); margin-bottom: var(--space-4); border-color: var(--status-success); background: rgba(16, 185, 129, 0.1);">
+        <h3 style="color: var(--status-success); display: flex; align-items: center; gap: 8px;">✅ Book Published Successfully!</h3>
+        <p style="font-size: var(--text-sm); margin-top: 4px;">The book is now available in the Student Knowledge Library.</p>
+      </div>
+
+      <div class="glass-panel" style="padding: var(--space-6); max-width: 800px;">
+        <form id="add-book-form">
+          <div class="grid-2" style="gap: var(--space-4);">
+            <div class="form-group" style="margin-bottom: var(--space-4);">
+              <label class="form-label">Book Title *</label>
+              <input type="text" class="input-control" id="prefill-title" placeholder="Enter title..." required>
+            </div>
+            <div class="form-group" style="margin-bottom: var(--space-4);">
+              <label class="form-label">Author Name *</label>
+              <input type="text" class="input-control" id="prefill-author" placeholder="Enter author..." required>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: var(--space-4);">
+            <label class="form-label">Category *</label>
+            <select class="input-control" id="add-category" required>
+              <option value="Productivity">Productivity</option>
+              <option value="Personal Finance">Personal Finance</option>
+              <option value="Career">Career</option>
+              <option value="Entrepreneurship">Entrepreneurship</option>
+              <option value="Mental Wellness">Mental Wellness</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin-bottom: var(--space-4);">
+            <label class="form-label">Book Description *</label>
+            <input type="text" class="input-control" id="add-description" placeholder="A short one-sentence description" required>
+          </div>
+
+          <div class="form-group" style="margin-bottom: var(--space-4);">
+            <label class="form-label">Full Summary *</label>
+            <textarea class="input-control" id="add-summary" rows="4" placeholder="Write a comprehensive 5-minute summary..." required></textarea>
+          </div>
+
+          <div class="form-group" style="margin-bottom: var(--space-4);">
+            <label class="form-label">Key Ideas * (Separate by new lines)</label>
+            <textarea class="input-control" id="add-key-ideas" rows="4" placeholder="- Idea 1&#10;- Idea 2&#10;- Idea 3" required></textarea>
+          </div>
+
+          <div class="form-group" style="margin-bottom: var(--space-4);">
+            <label class="form-label">Optional Admin Review / Notes</label>
+            <textarea class="input-control" id="add-review" rows="3" placeholder="Any additional thoughts..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Publish Book to Library</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 4. APPROVE BOOKS SECTION -->
+    <section id="section-approve-books" class="admin-section" style="display: none;">
+      <h1 style="font-size: 2rem; margin-bottom: var(--space-6);">Approve Student Books</h1>
+      <div id="pending-books-grid" style="display: grid; grid-template-columns: 1fr; gap: var(--space-4);">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="landing-footer" style="margin-top: auto;">
+    <div class="footer-bottom" style="max-width: 1280px; margin: 0 auto;">
+      <div>© 2026 Studivo Admin Portal. Built with Vanilla Web Technologies.</div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const hamburgerBtn = document.getElementById('hamburger-btn');
+      const closeBtn = document.getElementById('side-menu-close');
+      const sideMenu = document.getElementById('side-menu');
+      const overlay = document.getElementById('side-menu-overlay');
+
+      if (hamburgerBtn && sideMenu && overlay) {
+        hamburgerBtn.addEventListener('click', () => {
+          sideMenu.classList.add('active');
+          overlay.classList.add('active');
+        });
+        
+        closeBtn.addEventListener('click', () => {
+          sideMenu.classList.remove('active');
+          overlay.classList.remove('active');
+        });
+        
+        overlay.addEventListener('click', () => {
+          sideMenu.classList.remove('active');
+          overlay.classList.remove('active');
+        });
+      }
+    });
+  </script>
+</body>
+</html>

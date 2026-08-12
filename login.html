@@ -98,8 +98,6 @@
           <span class="theme-icon-moon">🌙</span>
         </div>
       </button>
-
-      <a href="index.html" class="btn btn-ghost">Explore Site →</a>
     </div>
   </nav>
 
@@ -227,7 +225,7 @@
       if (res.success) {
         showAlert('Admin authentication verified! Redirecting...', false);
         setTimeout(() => {
-          window.location.href = 'knowledge.html';
+          window.location.href = 'admin-portal.html';
         }, 500);
       } else {
         showAlert(res.message, true);

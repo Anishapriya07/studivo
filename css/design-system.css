@@ -291,11 +291,13 @@ html[data-theme="light"] .theme-icon-moon { display: none; }
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .glass-panel-interactive:hover {
   border-color: var(--glass-border-light);
-  transform: translateY(-3px);
+  transform: translateY(-3px) translateZ(0);
   box-shadow: var(--shadow-lg), var(--shadow-glow-primary);
 }
 
@@ -306,6 +308,8 @@ html[data-theme="light"] .theme-icon-moon { display: none; }
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-md);
   padding: var(--space-5);
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 /* --- Buttons System --- */
