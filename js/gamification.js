@@ -26,13 +26,45 @@ class GamificationEngine {
     const coinsEl = document.getElementById('user-coins-count');
 
     if (levelEl) levelEl.textContent = `Lvl ${user.level}`;
-    if (xpTextEl) xpTextEl.textContent = `${user.xp} / ${user.maxXp} XP`;
+    if (xpTextEl) {
+      const prevXp = this.previousXp !== undefined ? this.previousXp : user.xp;
+      this.animateXPNumber(xpTextEl, prevXp, user.xp, user.maxXp);
+    }
+    this.previousXp = user.xp;
+
     if (xpBarEl) {
       const pct = Math.min(100, Math.round((user.xp / user.maxXp) * 100));
       xpBarEl.style.width = `${pct}%`;
     }
     if (streakEl) streakEl.textContent = `${user.streak}d`;
     if (coinsEl) coinsEl.textContent = user.coins;
+  }
+
+  animateXPNumber(el, start, end, maxXp) {
+    if (start >= end) {
+      el.textContent = `${end} / ${maxXp} XP`;
+      return;
+    }
+    const duration = 500;
+    const startTime = performance.now();
+    el.classList.add('xp-pulse');
+
+    const update = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easeProgress = progress * (2 - progress); // ease-out quad
+      const currentXP = Math.floor(start + (end - start) * easeProgress);
+
+      el.textContent = `${currentXP} / ${maxXp} XP`;
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        el.textContent = `${end} / ${maxXp} XP`;
+        setTimeout(() => el.classList.remove('xp-pulse'), 200);
+      }
+    };
+    requestAnimationFrame(update);
   }
 
   checkDailyStreak() {
@@ -57,9 +89,10 @@ class GamificationEngine {
   addXP(amount, reason = 'Action Completed') {
     const state = this.store.get();
     const user = state.user;
-    
+    this.previousXp = user.xp;
     user.xp += amount;
-    showToast(`+${amount} XP Earned! (${reason})`, 'success');
+    user.totalXp = (user.totalXp || (1800 + this.previousXp)) + amount;
+    showToast(`+${amount} XP earned! 🎉 (${reason})`, 'success');
 
     // Level up check
     if (user.xp >= user.maxXp) {
@@ -67,6 +100,7 @@ class GamificationEngine {
       user.xp = user.xp - user.maxXp;
       user.maxXp = Math.round(user.maxXp * 1.3);
       user.coins += 50; // Level up bonus coins
+      showToast(`🎉 Level Up!<br>You reached Level ${user.level}!`, 'success');
       this.triggerLevelUpModal(user.level);
     }
 
@@ -91,6 +125,9 @@ class GamificationEngine {
       this.addXP(quest.xp, quest.title);
       this.addCoins(quest.coins);
       this.renderQuests();
+      if (typeof app !== 'undefined' && app.currentView === 'dashboard') {
+        app.renderDashboardOverview();
+      }
     }
   }
 
@@ -137,8 +174,8 @@ class GamificationEngine {
           <span class="badge badge-primary">+${q.xp} XP</span>
           <span class="badge badge-warning">+${q.coins} 🪙</span>
           ${q.completed ? 
-            `<span class="badge badge-success">Done</span>` : 
-            `<button class="btn btn-sm btn-accent" onclick="gamification.completeQuest('${q.id}')">Claim</button>`
+            `<button class="btn btn-sm btn-accent" disabled>Claimed</button>` : 
+            `<button class="btn btn-sm btn-accent" onclick="gamification.completeQuest('${q.id}')">Claim XP</button>`
           }
         </div>
       </div>

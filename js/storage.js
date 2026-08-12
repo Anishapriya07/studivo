@@ -2,7 +2,7 @@
    STUDIVO STORAGE - LocalStorage Persistence & Seed Data
    ========================================== */
 
-const STORAGE_KEY = 'studivo_app_state_v1';
+const STORAGE_KEY = 'studivo_app_state_v2';
 
 const defaultState = {
   user: {
@@ -68,6 +68,32 @@ const defaultState = {
       { id: 'r-2', title: 'Grandmaster Badge', cost: 300, type: 'Badge', icon: '👑', unlocked: false },
       { id: 'r-3', title: 'Zen Soundpack', cost: 200, type: 'Audio', icon: '🎧', unlocked: true },
       { id: 'r-4', title: 'Neon Aura Effect', cost: 500, type: 'Visual', icon: '✨', unlocked: false }
+    ],
+    unlockedBadges: ['ach_1', 'ach_5', 'ach_8', 'ach_10', 'ach_14'],
+    timeline: [
+      { id: 'ach_1', date: '2026-08-08', title: 'First Step', xp: 50 },
+      { id: 'ach_5', date: '2026-08-09', title: 'Mindful Check-in', xp: 50 },
+      { id: 'ach_8', date: '2026-08-10', title: 'Hydration Hero', xp: 50 },
+      { id: 'ach_10', date: '2026-08-10', title: 'Budget Optimizer', xp: 50 },
+      { id: 'ach_14', date: '2026-08-11', title: 'Streak Starter', xp: 75 }
+    ],
+    dailyChallenges: [
+      { id: 'dc_1', title: 'Log Today\'s Mood & Reflection', hub: 'Wellness', xp: 50, done: true },
+      { id: 'dc_2', title: 'Practice 1 Career Skill or Flashcard', hub: 'Career', xp: 60, done: false },
+      { id: 'dc_3', title: 'Log 1 Student Expense or Deposit', hub: 'Finance', xp: 40, done: true },
+      { id: 'dc_4', title: 'Read 1 Book Summary in Knowledge Hub', hub: 'Knowledge', xp: 50, done: false }
+    ],
+    weeklyChallenges: [
+      { id: 'wc_1', title: 'Maintain 5-Day Check-in Streak', xp: 200, progress: 5, target: 5, done: true },
+      { id: 'wc_2', title: 'Save $150 Towards Goals', xp: 250, progress: 100, target: 150, done: false },
+      { id: 'wc_3', title: 'Complete 2 Book Summaries', xp: 300, progress: 1, target: 2, done: false }
+    ],
+    leaderboard: [
+      { rank: 1, name: 'Sarah Kim', school: 'Stanford', xp: 2850, avatar: 'SK' },
+      { rank: 2, name: 'Alex Rivers (You)', school: 'Studivo Pro', xp: 2250, avatar: 'AR', isUser: true },
+      { rank: 3, name: 'David Lee', school: 'MIT', xp: 2100, avatar: 'DL' },
+      { rank: 4, name: 'Maya Rodriguez', school: 'UC Berkeley', xp: 1950, avatar: 'MR' },
+      { rank: 5, name: 'Jason Park', school: 'CMU', xp: 1700, avatar: 'JP' }
     ]
   }
 };

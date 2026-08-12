@@ -120,7 +120,7 @@ class StudivoApp {
           <div style="font-size: var(--text-xs); font-weight: bold;">${q.title}</div>
           <div style="display:flex; gap:6px; align-items:center;">
             <span class="badge badge-primary">+${q.xp} XP</span>
-            ${q.completed ? '✓' : `<button class="btn btn-sm btn-accent" onclick="gamification.completeQuest('${q.id}')">Claim</button>`}
+            ${q.completed ? `<button class="btn btn-sm btn-accent" disabled>Claimed</button>` : `<button class="btn btn-sm btn-accent" onclick="gamification.completeQuest('${q.id}')">Claim XP</button>`}
           </div>
         </div>
       `).join('');

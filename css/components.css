@@ -337,3 +337,15 @@ html[data-theme="dark"] .hud-item {
     display: block;
   }
 }
+
+/* ==================== XP ANIMATIONS ==================== */
+@keyframes pulseXP {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); color: #10B981; }
+  100% { transform: scale(1); }
+}
+
+.xp-pulse {
+  animation: pulseXP 0.4s ease;
+  display: inline-block;
+}

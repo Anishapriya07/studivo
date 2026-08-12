@@ -229,7 +229,7 @@
       <div style="font-size: 4rem; margin-bottom: var(--space-2);" id="unlock-modal-icon">🎉</div>
       <h2 class="gradient-text-accent" style="font-size: var(--text-3xl);">ACHIEVEMENT UNLOCKED!</h2>
       <p id="unlock-modal-message" style="margin: var(--space-3) 0 var(--space-6); font-size: var(--text-base);">You unlocked a new badge!</p>
-      <button class="btn btn-primary btn-lg" style="width: 100%;" onclick="document.getElementById('unlock-modal-overlay').classList.remove('active')">Claim XP & Continue ▶</button>
+      <button class="btn btn-primary btn-lg" style="width: 100%;" onclick="window.gamificationHubPage.claimPendingBadgeXP()">Claim XP & Continue ▶</button>
     </div>
   </div>
 
@@ -248,6 +248,7 @@
   </footer>
 
   <!-- JavaScript Module -->
+  <script src="js/storage.js"></script>
   <script src="js/gamification-hub-page.js"></script>
 </body>
 </html>
