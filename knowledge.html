@@ -181,28 +181,46 @@
       <img src="assets/logo/logo-horizontal.svg" alt="Studivo Logo" height="38">
     </a>
 
-    <!-- Desktop Navigation Pill Tabs -->
-    <ul class="nav-links">
-      <li><a href="index.html">Dashboard</a></li>
-      <li><a href="career.html">Career Hub</a></li>
-      <li><a href="wellness.html">Wellness Hub</a></li>
-      <li><a href="finance.html">Finance Hub</a></li>
-      <li><a href="gamification.html">Gamification Hub</a></li>
-      <li><a href="knowledge.html" class="active">Knowledge Hub</a></li>
+    <button id="hamburger-btn" class="hamburger-btn" aria-label="Open Menu">
+      ☰
+    </button>
+  </nav>
+
+  <!-- Side Menu Overlay -->
+  <div id="side-menu-overlay" class="side-menu-overlay"></div>
+
+  <!-- Side Menu -->
+  <aside id="side-menu" class="side-menu">
+    <div class="side-menu-header">
+      <h3 style="margin: 0; font-size: 1.2rem;">Menu</h3>
+      <button id="side-menu-close" class="side-menu-close" aria-label="Close Menu">✖</button>
+    </div>
+    
+    <ul class="side-nav-links">
+      <li><a href="index.html">🏠 Dashboard</a></li>
+      <li><a href="career.html">💼 Career Hub</a></li>
+      <li><a href="wellness.html">🧠 Wellness Hub</a></li>
+      <li><a href="finance.html">💰 Finance Hub</a></li>
+      <li><a href="knowledge.html" class="active">📚 Knowledge Hub</a></li>
+      <li><a href="gamification.html">🎮 Gamification</a></li>
+      <li><a href="index.html#settings">⚙️ Settings</a></li>
     </ul>
 
-    <div style="display: flex; align-items: center; gap: var(--space-4);">
-      <!-- Sun/Moon Theme Toggle Control -->
-      <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Light and Dark Theme" title="Switch Light / Dark Theme">
-        <div class="theme-toggle-thumb">
-          <span class="theme-icon-sun">☀️</span>
-          <span class="theme-icon-moon">🌙</span>
-        </div>
-      </button>
+    <div class="side-menu-footer">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3);">
+        <span style="font-size: var(--text-sm); font-weight: 600;">Theme</span>
+        <!-- Sun/Moon Theme Toggle Control -->
+        <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Light and Dark Theme" title="Switch Light / Dark Theme">
+          <div class="theme-toggle-thumb">
+            <span class="theme-icon-sun">☀️</span>
+            <span class="theme-icon-moon">🌙</span>
+          </div>
+        </button>
+      </div>
 
-      <a href="app.html" class="btn btn-primary btn-pulse">Launch App Studio ▶</a>
+      <a href="app.html" class="btn btn-primary btn-pulse" style="text-align: center;">Launch App Studio ▶</a>
     </div>
-  </nav>
+  </aside>
 
   <!-- ==================== 1. HERO SECTION ==================== -->
   <main style="max-width: 1280px; margin: 0 auto; padding: 40px var(--space-8) 80px;">

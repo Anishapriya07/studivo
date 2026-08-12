@@ -69,19 +69,44 @@
       <img src="assets/logo/logo-horizontal.svg" alt="Studivo Logo" height="38">
     </a>
 
-    <!-- Desktop Navigation Pill Tabs -->
-    <ul class="nav-links">
-      <li><a href="index.html" class="active">Dashboard</a></li>
-      <li><a href="career.html">Career Hub</a></li>
-      <li><a href="wellness.html">Wellness Hub</a></li>
-      <li><a href="finance.html">Finance Hub</a></li>
-      <li><a href="gamification.html">Gamification Hub</a></li>
-      <li><a href="knowledge.html">Knowledge Hub</a></li>
+    <button id="hamburger-btn" class="hamburger-btn" aria-label="Open Menu">
+      ☰
+    </button>
+  </nav>
+
+  <!-- Side Menu Overlay -->
+  <div id="side-menu-overlay" class="side-menu-overlay"></div>
+
+  <!-- Side Menu -->
+  <aside id="side-menu" class="side-menu">
+    <div class="side-menu-header">
+      <h3 style="margin: 0; font-size: 1.2rem;">Menu</h3>
+      <button id="side-menu-close" class="side-menu-close" aria-label="Close Menu">✖</button>
+    </div>
+    
+    <ul class="side-nav-links">
+      <li><a href="index.html" class="active">🏠 Dashboard</a></li>
+      <li><a href="career.html">💼 Career Hub</a></li>
+      <li><a href="wellness.html">🧠 Wellness Hub</a></li>
+      <li><a href="finance.html">💰 Finance Hub</a></li>
+      <li><a href="knowledge.html">📚 Knowledge Hub</a></li>
+      <li><a href="gamification.html">🎮 Gamification</a></li>
+      <li><a href="index.html#settings">⚙️ Settings</a></li>
     </ul>
 
-    <div style="display: flex; align-items: center; gap: var(--space-4);">
-      <!-- Gamification Status HUD -->
-      <div style="display: flex; align-items: center; gap: var(--space-3);">
+    <div class="side-menu-footer">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3);">
+        <span style="font-size: var(--text-sm); font-weight: 600;">Theme</span>
+        <!-- Sun/Moon Theme Toggle Control -->
+        <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Light and Dark Theme" title="Switch Light / Dark Theme">
+          <div class="theme-toggle-thumb">
+            <span class="theme-icon-sun">☀️</span>
+            <span class="theme-icon-moon">🌙</span>
+          </div>
+        </button>
+      </div>
+
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: var(--space-2);">
         <div class="hud-item" title="Daily Streak">
           <span class="hud-icon-streak">🔥</span>
           <span id="dash-nav-streak">5d</span>
@@ -90,18 +115,10 @@
           <span class="hud-icon-coin">🪙</span>
           <span id="dash-nav-coins">280</span>
         </div>
-        <div class="level-badge" id="dash-nav-level">Lvl 3</div>
+        <div class="level-badge" id="dash-nav-level" style="font-size: 0.65rem;">Lvl 3</div>
       </div>
-
-      <!-- Sun/Moon Theme Toggle Control -->
-      <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Light and Dark Theme" title="Switch Light / Dark Theme">
-        <div class="theme-toggle-thumb">
-          <span class="theme-icon-sun">☀️</span>
-          <span class="theme-icon-moon">🌙</span>
-        </div>
-      </button>
     </div>
-  </nav>
+  </aside>
 
   <!-- ==================== DASHBOARD MAIN CONTENT ==================== -->
   <main style="max-width: 1280px; margin: 0 auto; padding: 40px var(--space-8) 80px;">
@@ -431,6 +448,63 @@
         </div>
       </div>
 
+    </section>
+
+    <!-- 6. STUDENT SETTINGS SECTION -->
+    <section id="settings" class="glass-panel reveal-on-scroll" style="padding: var(--space-6); margin-top: var(--space-8);">
+      <h3 style="margin-bottom: var(--space-4);">⚙️ Student Settings</h3>
+      
+      <div class="grid-2">
+        <!-- Appearance -->
+        <div class="glass-card" style="padding: var(--space-4);">
+          <h4 style="margin-bottom: var(--space-3);">Appearance</h4>
+          <div style="display: flex; gap: var(--space-3);">
+            <button class="btn btn-primary btn-sm" onclick="applyTheme('light')">☀️ Light Mode</button>
+            <button class="btn btn-secondary btn-sm" onclick="applyTheme('dark')">🌙 Dark Mode</button>
+          </div>
+        </div>
+
+        <!-- Currency & Region -->
+        <div class="glass-card" style="padding: var(--space-4);">
+          <h4 style="margin-bottom: var(--space-3);">Currency & Region</h4>
+          <label for="currency-selector" style="font-size: var(--text-sm); color: var(--text-muted); display: block; margin-bottom: var(--space-2);">Preferred Currency:</label>
+          <select id="currency-selector" class="glass-input" style="width: 100%; padding: 8px; border-radius: var(--radius-md); background: var(--glass-surface-1); color: var(--text-main); border: 1px solid var(--glass-border);">
+            <option value="INR ₹">INR ₹</option>
+            <option value="USD $">USD $</option>
+            <option value="EUR €">EUR €</option>
+            <option value="GBP £">GBP £</option>
+            <option value="JPY ¥">JPY ¥</option>
+            <option value="AED د.إ">AED د.إ</option>
+            <option value="CAD C$">CAD C$</option>
+            <option value="AUD A$">AUD A$</option>
+            <option value="SGD S$">SGD S$</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Help & Support -->
+      <div class="glass-card" style="padding: var(--space-4); margin-top: var(--space-4);">
+        <h4 style="margin-bottom: var(--space-3);">Help & Support</h4>
+        <ul style="list-style: none; padding: 0; display: flex; gap: var(--space-4); flex-wrap: wrap;">
+          <li><a href="#contact" style="color: var(--brand-primary); text-decoration: none;">Contact</a></li>
+          <li><a href="#faq" style="color: var(--brand-primary); text-decoration: none;">FAQ</a></li>
+          <li><a href="#about" style="color: var(--brand-primary); text-decoration: none;">About Studivo</a></li>
+          <li><a href="#terms" style="color: var(--brand-primary); text-decoration: none;">Terms & Conditions</a></li>
+        </ul>
+      </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const currencySelector = document.getElementById('currency-selector');
+          const savedCurrency = localStorage.getItem('studivo_currency') || 'USD $';
+          currencySelector.value = savedCurrency;
+
+          currencySelector.addEventListener('change', (e) => {
+            localStorage.setItem('studivo_currency', e.target.value);
+            // Re-render currency instances if needed
+          });
+        });
+      </script>
     </section>
 
   </main>

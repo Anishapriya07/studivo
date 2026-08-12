@@ -551,3 +551,181 @@ html[data-theme="dark"] .nav-links a.active {
     font-size: 2.2rem;
   }
 }
+
+/* ==================== HAMBURGER & SIDE MENU ==================== */
+.hamburger-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--text-main);
+  transition: transform var(--transition-normal), color var(--transition-theme);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.hamburger-btn:hover {
+  transform: scale(1.1);
+  color: var(--brand-primary);
+}
+
+.side-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 1001;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+
+.side-menu-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -340px;
+  width: 320px;
+  max-width: 85vw;
+  height: 100vh;
+  border-radius: 28px 0 0 28px;
+  background: var(--glass-surface-1);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-left: 1px solid var(--glass-border);
+  box-shadow: -15px 0 50px rgba(0, 0, 0, 0.25);
+  z-index: 1002;
+  padding: var(--space-8) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  transition: right 500ms cubic-bezier(0.25, 1, 0.5, 1), box-shadow 500ms ease;
+  overflow-y: auto;
+}
+
+html[data-theme="light"] .side-menu {
+  background: rgba(255, 255, 255, 0.98);
+  border-left: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: -15px 0 50px rgba(15, 23, 42, 0.08);
+}
+
+html[data-theme="dark"] .side-menu {
+  background: rgba(15, 23, 42, 0.96);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: -15px 0 50px rgba(0, 0, 0, 0.6);
+}
+
+.side-menu.open {
+  right: 0;
+}
+
+.side-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-2);
+}
+
+.side-menu-header h3 {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+}
+
+.side-menu-close {
+  background: var(--glass-surface-2);
+  border: 1px solid var(--glass-border);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 300ms ease;
+}
+
+.side-menu-close:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--status-danger);
+  border-color: rgba(239, 68, 68, 0.3);
+  transform: rotate(90deg);
+}
+
+.side-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.side-nav-links a {
+  text-decoration: none;
+  font-family: var(--font-main);
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 14px 20px;
+  border-radius: 16px;
+  color: var(--text-muted);
+  transition: all 300ms cubic-bezier(0.25, 1, 0.5, 1);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  position: relative;
+  overflow: hidden;
+}
+
+html[data-theme="light"] .side-nav-links a:hover {
+  color: #111827;
+  background: #F1F5F9;
+  transform: translateX(6px);
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
+}
+
+html[data-theme="dark"] .side-nav-links a:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateX(6px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+html[data-theme="light"] .side-nav-links a.active {
+  color: #BE185D;
+  background: linear-gradient(135deg, #FCE7F3, #FDF2F8);
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(236, 72, 153, 0.15);
+  border: 1px solid rgba(236, 72, 153, 0.2);
+}
+
+html[data-theme="dark"] .side-nav-links a.active {
+  color: #FFFFFF;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(168, 85, 247, 0.15));
+  font-weight: 700;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.25);
+}
+
+.side-menu-footer {
+  margin-top: auto;
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
