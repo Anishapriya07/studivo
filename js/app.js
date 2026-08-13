@@ -30,19 +30,16 @@ function showToast(message, type = 'info') {
 class StudivoApp {
   constructor() {
     this.currentView = 'dashboard';
+    this.previousXp = undefined;
   }
 
   init() {
     this.setupNavigation();
     this.setupModals();
     this.setupMobileMenu();
+    this.checkDailyStreak();
+    this.updateHUD();
     this.renderDashboardOverview();
-    
-    // Initialize feature modules
-    gamification.init();
-    careerHub.init();
-    wellnessSanctuary.init();
-    financeManager.init();
 
     showToast('Welcome to Studivo! Level 3 Student Explorer 🚀', 'success');
   }
@@ -80,12 +77,122 @@ class StudivoApp {
 
     // Refresh view specific components
     if (viewName === 'dashboard') this.renderDashboardOverview();
-    if (viewName === 'career') careerHub.renderKanban();
-    if (viewName === 'finance') financeManager.renderSVGChart();
-    if (viewName === 'gamification') gamification.renderQuests();
 
     // Close mobile menu if open
     document.getElementById('app-sidebar')?.classList.remove('open');
+  }
+
+  /* --- HUD & Gamification Updates --- */
+  updateHUD() {
+    const state = store.get();
+    const user = state.user;
+    
+    const levelEl = document.getElementById('user-level-badge');
+    const xpTextEl = document.getElementById('user-xp-text');
+    const xpBarEl = document.getElementById('user-xp-bar');
+    const streakEl = document.getElementById('user-streak-count');
+    const coinsEl = document.getElementById('user-coins-count');
+
+    if (levelEl) levelEl.textContent = `Lvl ${user.level}`;
+    if (xpTextEl) {
+      const prevXp = this.previousXp !== undefined ? this.previousXp : user.xp;
+      this.animateXPNumber(xpTextEl, prevXp, user.xp, user.maxXp);
+    }
+    this.previousXp = user.xp;
+
+    if (xpBarEl) {
+      const pct = Math.min(100, Math.round((user.xp / user.maxXp) * 100));
+      xpBarEl.style.width = `${pct}%`;
+    }
+    if (streakEl) streakEl.textContent = `${user.streak}d`;
+    if (coinsEl) coinsEl.textContent = user.coins;
+  }
+
+  animateXPNumber(el, start, end, maxXp) {
+    if (start >= end) {
+      el.textContent = `${end} / ${maxXp} XP`;
+      return;
+    }
+    const duration = 500;
+    const startTime = performance.now();
+    el.classList.add('xp-pulse');
+
+    const update = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easeProgress = progress * (2 - progress); // ease-out quad
+      const currentXP = Math.floor(start + (end - start) * easeProgress);
+
+      el.textContent = `${currentXP} / ${maxXp} XP`;
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        el.textContent = `${end} / ${maxXp} XP`;
+        setTimeout(() => el.classList.remove('xp-pulse'), 200);
+      }
+    };
+    requestAnimationFrame(update);
+  }
+
+  checkDailyStreak() {
+    const state = store.get();
+    const user = state.user;
+    const today = new Date().toISOString().split('T')[0];
+    if (user.lastCheckin !== today) {
+      const lastDate = new Date(user.lastCheckin);
+      const currentDate = new Date(today);
+      const diffDays = Math.floor((currentDate - lastDate) / (1000 * 60 * 60 * 24));
+      
+      if (diffDays === 1) {
+        user.streak += 1;
+      } else if (diffDays > 1) {
+        user.streak = 1;
+      }
+      user.lastCheckin = today;
+      store.saveState();
+      this.updateHUD();
+    }
+  }
+
+  addXP(amount, reason = 'Action Completed') {
+    const state = store.get();
+    const user = state.user;
+    this.previousXp = user.xp;
+    user.xp += amount;
+    user.totalXp = (user.totalXp || 1800) + amount;
+    showToast(`+${amount} XP earned! 🎉 (${reason})`, 'success');
+
+    // Level up check
+    if (user.xp >= user.maxXp) {
+      user.level += 1;
+      user.xp = user.xp - user.maxXp;
+      user.maxXp = Math.round(user.maxXp * 1.2);
+      showToast(`LEVEL UP! You reached Level ${user.level}! 👑`, 'success');
+    }
+    store.saveState();
+    this.updateHUD();
+  }
+
+  addCoins(amount) {
+    const state = store.get();
+    const user = state.user;
+    user.coins += amount;
+    store.saveState();
+    this.updateHUD();
+    showToast(`+${amount} Coins Received! 🪙`, 'info');
+  }
+
+  completeQuest(questId) {
+    const state = store.get();
+    const quest = state.gamification.quests.find(q => q.id === questId);
+    if (quest && !quest.completed) {
+      quest.completed = true;
+      store.saveState();
+      this.addXP(quest.xp, quest.title);
+      this.addCoins(quest.coins);
+      this.renderDashboardOverview();
+    }
   }
 
   /* --- Dashboard Overview Dynamic Population --- */
@@ -190,3 +297,10 @@ document.addEventListener('DOMContentLoaded', () => {
   app.init();
   initScrollReveal();
 });
+
+// Global gamification adapter for button onclick attributes
+const gamification = {
+  completeQuest: (questId) => {
+    if (app) app.completeQuest(questId);
+  }
+};
