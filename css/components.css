@@ -351,3 +351,72 @@ html[data-theme="dark"] .hud-item {
   animation: pulseXP 0.4s ease;
   display: inline-block;
 }
+
+/* ==================== CORE GRID HELPER UTILITIES ==================== */
+.grid-2, .grid-3, .grid-4, .grid-5, .grid-dashboard {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+.grid-5 { grid-template-columns: repeat(5, 1fr); }
+.grid-dashboard { grid-template-columns: 2fr 1fr; }
+
+/* ==================== RESPONSIVE PHONE OVERRIDES ==================== */
+@media (max-width: 768px) {
+  .grid-2, .grid-3, .grid-4, .grid-dashboard {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-4);
+  }
+
+  /* Optimize mood cards container */
+  #mood-selector-grid, #brand-palette-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: var(--space-2) !important;
+  }
+
+  /* Optimize badges grid container */
+  #badges-grid-container {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: var(--space-3) !important;
+  }
+
+  /* Force horizontal flex containers to stack on mobile */
+  .glass-card-glow > div {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: var(--space-4) !important;
+  }
+
+  .glass-card-glow > div .btn {
+    width: 100% !important;
+  }
+
+  /* Transaction recent items stacking */
+  #transactions-list-container .glass-card {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: var(--space-3) !important;
+  }
+
+  #transactions-list-container .glass-card > div:last-child {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--glass-border);
+    padding-top: var(--space-2);
+  }
+}
+
+@media (max-width: 480px) {
+  #badges-grid-container {
+    grid-template-columns: 1fr !important;
+  }
+  
+  #mood-selector-grid, #brand-palette-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}

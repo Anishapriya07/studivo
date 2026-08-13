@@ -147,18 +147,33 @@ class AuthEngine {
 
     if (this.session.isLoggedIn) {
       const isAdmin = this.session.role === 'admin';
+      const initials = isAdmin ? 'A' : (this.session.username ? this.session.username.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'S');
+      const avatarColor = isAdmin ? 'var(--brand-accent)' : 'var(--brand-primary)';
+      
       authWidget.innerHTML = `
-        <div class="glass-card" style="padding: 4px 12px; border-radius: var(--radius-full); display: flex; align-items: center; gap: 6px; font-size: var(--text-xs); font-weight: bold; border-color: ${isAdmin ? 'var(--brand-accent)' : 'var(--brand-primary)'};">
-          <span>${isAdmin ? '👨‍💼 Admin' : '👨‍🎓 Student'}</span>
-          <span style="color: var(--text-muted);">(${this.session.username})</span>
-        </div>
-        <button class="btn btn-ghost btn-sm" onclick="authEngine.logout()" title="Logout" style="font-size: var(--text-xs);">
-          Logout 🚪
+        <button onclick="authEngine.logout()" title="Logout (${this.session.username})" style="
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          background: ${avatarColor};
+          color: white;
+          border: 2px solid var(--glass-border-light);
+          font-weight: bold;
+          font-family: var(--font-heading);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          font-size: var(--text-sm);
+          box-shadow: var(--shadow-sm);
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        " onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
+          ${initials}
         </button>
       `;
     } else {
       authWidget.innerHTML = `
-        <a href="login.html" class="btn btn-secondary btn-sm">
+        <a href="login.html" class="btn btn-secondary btn-sm" style="padding: 0.4rem 0.8rem; border-radius: var(--radius-full);">
           Login 🔑
         </a>
       `;
